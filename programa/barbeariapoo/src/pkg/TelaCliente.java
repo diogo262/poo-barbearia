@@ -14,7 +14,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JTextPane;
 
-public class TelaInicial extends JFrame {
+public class TelaCliente extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -38,7 +38,7 @@ public class TelaInicial extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public TelaInicial() {
+	public TelaCliente() {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 700, 400);
@@ -49,11 +49,11 @@ public class TelaInicial extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JButton btnCadastro = new JButton("Cadastrar-se");
-		btnCadastro.setBounds(274, 96, 148, 31);
-		contentPane.add(btnCadastro);
+		JButton btnMarcarChegada = new JButton("Marcar Chegada");
+		btnMarcarChegada.setBounds(43, 138, 148, 31);
+		contentPane.add(btnMarcarChegada);
 		
-        btnCadastro.addActionListener(new ActionListener() {
+        btnMarcarChegada.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 TelaCadastro telaCadastro = new TelaCadastro();
 
@@ -64,11 +64,11 @@ public class TelaInicial extends JFrame {
         });
 		
 		
-		JButton btnLogin = new JButton("Iniciar Sessão");
-		btnLogin.setBounds(274, 147, 148, 31);
-		contentPane.add(btnLogin);
+		JButton btnAvaliarFunc = new JButton("Avaliar Funcionário");
+		btnAvaliarFunc.setBounds(271, 138, 148, 31);
+		contentPane.add(btnAvaliarFunc);
 		
-		btnLogin.addActionListener(new ActionListener() {
+		btnAvaliarFunc.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 TelaLogin telaLogin = new TelaLogin();
 
@@ -79,7 +79,7 @@ public class TelaInicial extends JFrame {
         });
 		
 		JButton btnSair = new JButton("Sair");
-		btnSair.setBounds(289, 211, 114, 23);
+		btnSair.setBounds(288, 260, 114, 23);
 		contentPane.add(btnSair);
 		
 		btnSair.addActionListener(new ActionListener() {
@@ -94,9 +94,13 @@ public class TelaInicial extends JFrame {
 		JTextPane txtpnOQueVoc = new JTextPane();
 		txtpnOQueVoc.setBackground(new Color(255, 253, 233));
 		txtpnOQueVoc.setEditable(false);
-		txtpnOQueVoc.setText("O que você gostaria de fazer?");
+		txtpnOQueVoc.setText("Bem-vindo(a), NomedoCliente!");
 		txtpnOQueVoc.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		txtpnOQueVoc.setBounds(256, 44, 189, 20);
+		txtpnOQueVoc.setBounds(10, 11, 229, 20);
 		contentPane.add(txtpnOQueVoc);
+		
+		JButton btnListarServ = new JButton("Listar Serviços");
+		btnListarServ.setBounds(485, 138, 148, 31);
+		contentPane.add(btnListarServ);
 	}
 }
