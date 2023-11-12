@@ -67,6 +67,10 @@ public class TelaEscolherServico extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
+            	TelaCliente telaCliente = new TelaCliente();
+
+                telaCliente.setVisible(true);
+            	
             	dispose();
             	
             }

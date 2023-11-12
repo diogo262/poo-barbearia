@@ -55,9 +55,9 @@ public class TelaFuncionario extends JFrame {
 		
         btnListarFunc.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                TelaCadastro telaCadastro = new TelaCadastro();
+                TelaListarFuncionario telaListarFuncionario = new TelaListarFuncionario();
 
-                telaCadastro.setVisible(true);
+                telaListarFuncionario.setVisible(true);
 
                 dispose();
             }
@@ -70,9 +70,9 @@ public class TelaFuncionario extends JFrame {
 		
 		btnListarFila.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                TelaLogin telaLogin = new TelaLogin();
+                TelaListarFila telaListarFila = new TelaListarFila();
 
-                telaLogin.setVisible(true);
+                telaListarFila.setVisible(true);
 
                 dispose();
             }
@@ -103,12 +103,44 @@ public class TelaFuncionario extends JFrame {
 		btnListarCli.setBounds(485, 138, 148, 31);
 		contentPane.add(btnListarCli);
 		
+		btnListarCli.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                TelaListarCliente telaListarCliente = new TelaListarCliente();
+
+                telaListarCliente.setVisible(true);
+
+                dispose();
+            }
+        });
+		
+		
 		JButton btnListarUni = new JButton("Listar Unidade");
 		btnListarUni.setBounds(132, 199, 148, 31);
 		contentPane.add(btnListarUni);
 		
+		btnListarUni.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                TelaListarUnidade telaListarUnidade = new TelaListarUnidade();
+
+                telaListarUnidade.setVisible(true);
+
+                dispose();
+            }
+        });
+		
 		JButton btnListarServ = new JButton("Listar Serviço");
 		btnListarServ.setBounds(381, 199, 148, 31);
 		contentPane.add(btnListarServ);
+		
+		btnListarServ.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                TelaListarServico telaListarServico = new TelaListarServico();
+
+                telaListarServico.setVisible(true);
+
+                dispose();
+            }
+        });
+		
 	}
 }

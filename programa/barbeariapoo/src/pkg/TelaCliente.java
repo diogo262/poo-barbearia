@@ -55,9 +55,9 @@ public class TelaCliente extends JFrame {
 		
         btnMarcarChegada.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                TelaCadastro telaCadastro = new TelaCadastro();
+                TelaMarcarChegada telaMarcarChegada = new TelaMarcarChegada();
 
-                telaCadastro.setVisible(true);
+                telaMarcarChegada.setVisible(true);
 
                 dispose();
             }
@@ -70,9 +70,9 @@ public class TelaCliente extends JFrame {
 		
 		btnAvaliarFunc.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                TelaLogin telaLogin = new TelaLogin();
+                TelaAvaliarFuncionario telaAvaliarFuncionario = new TelaAvaliarFuncionario();
 
-                telaLogin.setVisible(true);
+                telaAvaliarFuncionario.setVisible(true);
 
                 dispose();
             }
@@ -102,5 +102,16 @@ public class TelaCliente extends JFrame {
 		JButton btnListarServ = new JButton("Listar Serviços");
 		btnListarServ.setBounds(485, 138, 148, 31);
 		contentPane.add(btnListarServ);
+		
+		btnListarServ.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                TelaListarServico telaListarServico = new TelaListarServico();
+
+                telaListarServico.setVisible(true);
+
+                dispose();
+            }
+        });
+		
 	}
 }

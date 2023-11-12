@@ -67,6 +67,10 @@ public class TelaListarCliente extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
+            	TelaFuncionario telaFuncionario = new TelaFuncionario();
+
+                telaFuncionario.setVisible(true);
+            	
             	dispose();
             	
             }
