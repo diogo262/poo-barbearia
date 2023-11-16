@@ -1,4 +1,4 @@
-package pkg;
+package main;
 
 import java.awt.EventQueue;
 
@@ -14,7 +14,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JTextPane;
 
-public class TelaCliente extends JFrame {
+public class TelaInicial extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -38,7 +38,7 @@ public class TelaCliente extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public TelaCliente() {
+	public TelaInicial() {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 700, 400);
@@ -49,37 +49,37 @@ public class TelaCliente extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JButton btnMarcarChegada = new JButton("Marcar Chegada");
-		btnMarcarChegada.setBounds(43, 138, 148, 31);
-		contentPane.add(btnMarcarChegada);
+		JButton btnCadastro = new JButton("Cadastrar-se");
+		btnCadastro.setBounds(274, 96, 148, 31);
+		contentPane.add(btnCadastro);
 		
-        btnMarcarChegada.addActionListener(new ActionListener() {
+        btnCadastro.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                TelaMarcarChegada telaMarcarChegada = new TelaMarcarChegada();
+                TelaCadastro telaCadastro = new TelaCadastro();
 
-                telaMarcarChegada.setVisible(true);
+                telaCadastro.setVisible(true);
 
                 dispose();
             }
         });
 		
 		
-		JButton btnAvaliarFunc = new JButton("Avaliar Funcionário");
-		btnAvaliarFunc.setBounds(271, 138, 148, 31);
-		contentPane.add(btnAvaliarFunc);
+		JButton btnLogin = new JButton("Iniciar Sessão");
+		btnLogin.setBounds(274, 147, 148, 31);
+		contentPane.add(btnLogin);
 		
-		btnAvaliarFunc.addActionListener(new ActionListener() {
+		btnLogin.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                TelaAvaliarFuncionario telaAvaliarFuncionario = new TelaAvaliarFuncionario();
+                TelaLogin telaLogin = new TelaLogin();
 
-                telaAvaliarFuncionario.setVisible(true);
+                telaLogin.setVisible(true);
 
                 dispose();
             }
         });
 		
 		JButton btnSair = new JButton("Sair");
-		btnSair.setBounds(288, 260, 114, 23);
+		btnSair.setBounds(294, 210, 114, 23);
 		contentPane.add(btnSair);
 		
 		btnSair.addActionListener(new ActionListener() {
@@ -94,20 +94,35 @@ public class TelaCliente extends JFrame {
 		JTextPane txtpnOQueVoc = new JTextPane();
 		txtpnOQueVoc.setBackground(new Color(255, 253, 233));
 		txtpnOQueVoc.setEditable(false);
-		txtpnOQueVoc.setText("Bem-vindo(a), NomedoCliente!");
+		txtpnOQueVoc.setText("O que você gostaria de fazer?");
 		txtpnOQueVoc.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		txtpnOQueVoc.setBounds(10, 11, 229, 20);
+		txtpnOQueVoc.setBounds(256, 44, 189, 20);
 		contentPane.add(txtpnOQueVoc);
 		
-		JButton btnListarServ = new JButton("Listar Serviços");
-		btnListarServ.setBounds(485, 138, 148, 31);
-		contentPane.add(btnListarServ);
+		JButton btnCliente = new JButton("Teste tela cliente");
+		btnCliente.setBounds(235, 327, 178, 23);
+		contentPane.add(btnCliente);
 		
-		btnListarServ.addActionListener(new ActionListener() {
+		btnCliente.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                TelaListarServico telaListarServico = new TelaListarServico();
+                TelaCliente telaCliente = new TelaCliente();
 
-                telaListarServico.setVisible(true);
+                telaCliente.setVisible(true);
+
+                dispose();
+            }
+        });
+		
+		
+		JButton btnFuncionario = new JButton("Teste tela funcionario");
+		btnFuncionario.setBounds(35, 327, 178, 23);
+		contentPane.add(btnFuncionario);
+		
+		btnFuncionario.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                TelaFuncionario telaFuncionario = new TelaFuncionario();
+
+                telaFuncionario.setVisible(true);
 
                 dispose();
             }

@@ -1,4 +1,4 @@
-package pkg;
+package main;
 
 import java.awt.EventQueue;
 
@@ -14,7 +14,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JTextPane;
 
-public class TelaListarFila extends JFrame {
+public class TelaListarServico extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -38,7 +38,7 @@ public class TelaListarFila extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public TelaListarFila() {
+	public TelaListarServico() {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 700, 400);
@@ -49,11 +49,11 @@ public class TelaListarFila extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JButton btnAtendimentoConcluido = new JButton("Atendimento Concluído");
-		btnAtendimentoConcluido.setBounds(31, 42, 148, 31);
-		contentPane.add(btnAtendimentoConcluido);
+		JButton btnAddServicos = new JButton("Adicionar Serviços");
+		btnAddServicos.setBounds(31, 42, 148, 31);
+		contentPane.add(btnAddServicos);
 		
-        btnAtendimentoConcluido.addActionListener(new ActionListener() {
+        btnAddServicos.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 
             }
@@ -79,13 +79,13 @@ public class TelaListarFila extends JFrame {
 		JTextPane txtpnOQueVoc = new JTextPane();
 		txtpnOQueVoc.setBackground(new Color(255, 253, 233));
 		txtpnOQueVoc.setEditable(false);
-		txtpnOQueVoc.setText("Clientes aguardando atendimento");
+		txtpnOQueVoc.setText("Servicos Cadastrados");
 		txtpnOQueVoc.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txtpnOQueVoc.setBounds(10, 11, 229, 20);
 		contentPane.add(txtpnOQueVoc);
 		
-		JButton btnCancelarAtendimento = new JButton("Cancelar Atendimento");
-		btnCancelarAtendimento.setBounds(465, 46, 148, 31);
-		contentPane.add(btnCancelarAtendimento);
+		JButton btnRemoverServico = new JButton("Remover Serviços");
+		btnRemoverServico.setBounds(465, 46, 148, 31);
+		contentPane.add(btnRemoverServico);
 	}
 }
