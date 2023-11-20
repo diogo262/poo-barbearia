@@ -5,6 +5,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import metodos.Validacoes;
+
 import javax.swing.JTextField;
 import java.awt.Color;
 import java.awt.Font;
@@ -27,6 +30,13 @@ public class TelaCadastro extends JFrame {
 	private JTextField textFieldSenha;
 	private JTextField textFieldCpfCnpj;
 	private JTextField textFieldTelefone;
+	
+	private final String placeholderNome = "Nome";
+	private final String placeholderSobrenome = "Sobrenome";
+	private final String placeholderEmail = "E-mail";
+	private final String placeholderSenha = "Senha";
+	private final String placeholderCNPJCPF = "CPF/CNPJ";
+	private final String placeholderTelefone = "Telefone";
 
 	/**
 	 * Launch the application.
@@ -71,54 +81,54 @@ public class TelaCadastro extends JFrame {
 		textFieldNome = new JTextField();
 		textFieldNome.setBounds(105, 91, 213, 37);
 		contentPane.add(textFieldNome);
-        textFieldNome.setText("Nome");
+        textFieldNome.setText(placeholderNome);
         textFieldNome.setForeground(Color.GRAY);
-        adicionarTextoDica(textFieldNome, "Nome");
+        adicionarTextoDica(textFieldNome, placeholderNome);
         
         textFieldSobrenome = new JTextField();
-        textFieldSobrenome.setText("Sobrenome");
+        textFieldSobrenome.setText(placeholderSobrenome);
         textFieldSobrenome.setForeground(Color.GRAY);
         textFieldSobrenome.setBounds(377, 91, 213, 37);
         contentPane.add(textFieldSobrenome);
 
         // Adiciona o texto de dica e o FocusListener para o textFieldSobrenome
-        adicionarTextoDica(textFieldSobrenome, "Sobrenome");
+        adicionarTextoDica(textFieldSobrenome, placeholderSobrenome);
 
         textFieldEmail = new JTextField();
-        textFieldEmail.setText("E-mail");
+        textFieldEmail.setText(placeholderEmail);
         textFieldEmail.setForeground(Color.GRAY);
         textFieldEmail.setBounds(105, 150, 213, 37);
         contentPane.add(textFieldEmail);
 
         // Adiciona o texto de dica e o FocusListener para o textFieldEmail
-        adicionarTextoDica(textFieldEmail, "E-mail");
+        adicionarTextoDica(textFieldEmail, placeholderEmail);
 
         textFieldSenha = new JTextField();
-        textFieldSenha.setText("Senha");
+        textFieldSenha.setText(placeholderSenha);
         textFieldSenha.setForeground(Color.GRAY);
         textFieldSenha.setBounds(377, 150, 213, 37);
         contentPane.add(textFieldSenha);
 
         // Adiciona o texto de dica e o FocusListener para o textFieldSenha
-        adicionarTextoDica(textFieldSenha, "Senha");
+        adicionarTextoDica(textFieldSenha, placeholderSenha);
 
         textFieldCpfCnpj = new JTextField();
-        textFieldCpfCnpj.setText("CPF/CNPJ");
+        textFieldCpfCnpj.setText(placeholderCNPJCPF);
         textFieldCpfCnpj.setForeground(Color.GRAY);
         textFieldCpfCnpj.setBounds(105, 207, 213, 37);
         contentPane.add(textFieldCpfCnpj);
 
         // Adiciona o texto de dica e o FocusListener para o textFieldCpfCnpj
-        adicionarTextoDica(textFieldCpfCnpj, "CPF/CNPJ");
+        adicionarTextoDica(textFieldCpfCnpj, placeholderCNPJCPF);
 
         textFieldTelefone = new JTextField();
-        textFieldTelefone.setText("Telefone");
+        textFieldTelefone.setText(placeholderTelefone);
         textFieldTelefone.setForeground(Color.GRAY);
         textFieldTelefone.setBounds(377, 207, 213, 37);
         contentPane.add(textFieldTelefone);
 
         // Adiciona o texto de dica e o FocusListener para o textFieldTelefone
-        adicionarTextoDica(textFieldTelefone, "Telefone");
+        adicionarTextoDica(textFieldTelefone, placeholderTelefone);
         
         JButton btnVoltar = new JButton("Voltar");
         btnVoltar.setBounds(22, 327, 89, 23);
@@ -137,6 +147,30 @@ public class TelaCadastro extends JFrame {
         
         
         JButton btnSubmit = new JButton("Cadastrar-se");
+        btnSubmit.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		boolean entradaValida = false;
+        		
+        		Validacoes.validaTextField(textFieldNome.getText(), placeholderNome, entradaValida);
+
+        		Validacoes.validaTextField(textFieldSobrenome.getText(), placeholderSobrenome, entradaValida);
+
+        		Validacoes.validaTextField(textFieldEmail.getText(), placeholderEmail, entradaValida);
+
+        		Validacoes.validaTextField(textFieldSenha.getText(), placeholderSenha, entradaValida);
+
+        		Validacoes.validaTextField(textFieldCpfCnpj.getText(), placeholderCNPJCPF, entradaValida);
+        		
+        		Validacoes.validaTextField(textFieldTelefone.getText(), placeholderTelefone, entradaValida);
+        		
+        		if (entradaValida) {
+    				// valida os dados de entrada
+    				// se true, então ->  procura no banco pelo login
+    				// caso contrário -> erro
+        		}
+
+        	}
+        });
         btnSubmit.setFont(new Font("Tahoma", Font.PLAIN, 13));
         btnSubmit.setBounds(289, 270, 114, 25);
         contentPane.add(btnSubmit);

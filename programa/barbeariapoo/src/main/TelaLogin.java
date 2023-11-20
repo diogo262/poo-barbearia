@@ -26,6 +26,7 @@ public class TelaLogin extends JFrame {
 	private JPanel contentPane;
 	private JTextField textFieldEmailCpfCnpj;
 	private JTextField textFieldSenha;
+	
 	private final String placeholderEmailCpfCnpj = "E-mail/CPF/CNPJ";
 	private final String placeholderSenha = "Senha";
 
@@ -100,17 +101,17 @@ public class TelaLogin extends JFrame {
         JButton btnLogin = new JButton("Login");
         btnLogin.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		String conteudoTextField = textFieldEmailCpfCnpj.getText();
-        		if (conteudoTextField.equals(placeholderEmailCpfCnpj) || conteudoTextField.isBlank()) 
-        			Validacoes.chamaDialogErro("Por favor, informe um "+ placeholderEmailCpfCnpj +" correto", "Credencial inválida");
-        		else {
-        			conteudoTextField = textFieldSenha.getText();
-        			if (conteudoTextField.equals(placeholderSenha) || conteudoTextField.isBlank())
-            			Validacoes.chamaDialogErro("Por favor, informe uma "+ placeholderSenha +" correta", "Credencial inválida");
-        			else {
-        				// procura no banco pelo login
-        			}
-        		}
+        		boolean entradaValida = false;
+        		
+        		Validacoes.validaTextField(textFieldEmailCpfCnpj.getText(), placeholderEmailCpfCnpj, entradaValida);
+        		
+        		Validacoes.validaTextField(textFieldSenha.getText(), placeholderSenha, entradaValida);
+    			
+    			if (entradaValida) {
+    				// valida os dados de entrada
+    				// se true, então ->  procura no banco pelo login
+    				// caso contrário -> erro
+    			}
         			
         	}
         });
