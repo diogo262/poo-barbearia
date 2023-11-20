@@ -149,7 +149,7 @@ public class TelaCadastro extends JFrame {
         JButton btnSubmit = new JButton("Cadastrar-se");
         btnSubmit.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		boolean entradaValida = false;
+        		boolean entradaValida = true;
         		
         		Validacoes.validaTextField(textFieldNome.getText(), placeholderNome, entradaValida);
 
@@ -164,9 +164,22 @@ public class TelaCadastro extends JFrame {
         		Validacoes.validaTextField(textFieldTelefone.getText(), placeholderTelefone, entradaValida);
         		
         		if (entradaValida) {
-    				// valida os dados de entrada
-    				// se true, então ->  procura no banco pelo login
-    				// caso contrário -> erro
+        			String conteudoTextField = textFieldNome.getText();
+        			if (conteudoTextField.length() > 1) 
+        				Validacoes.chamaDialogErro("Erro!  O nome deve conter menos de (blablebli) caracteres.", "Nome inválido!");
+        			else {
+            			conteudoTextField = textFieldSobrenome.getText();
+            			if (conteudoTextField.length() > 1) 
+            				Validacoes.chamaDialogErro("Erro!  O sobrenome deve conter menos de (blablebli) caracteres.", "Sobrenome inválido!");
+            			else {
+                			conteudoTextField = textFieldEmail.getText();
+            				if (Validacoes.validaEmail(conteudoTextField)) {
+                				// valida os dados de entrada
+                				// se true, então ->  procura no banco pelo login
+                				// caso contrário -> erro
+            				}
+            			}
+        			}
         		}
 
         	}
