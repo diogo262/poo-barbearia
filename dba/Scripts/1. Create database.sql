@@ -6,7 +6,7 @@ create table tbl_funcionario (
 	cd_funcionario int primary key auto_increment,
 	nome_funcionario varchar(65) not null,
     sobrenome_funcionario varchar(120) not null,
-    telefone_funcionario varchar(9) not null,
+    telefone_funcionario varchar(11) not null,
     email_funcionario varchar(65) not null,
     senha_funcionario varchar(65) not null,
     adm_funcionario bit not null
@@ -28,7 +28,7 @@ create table tbl_cliente (
 	cd_cliente int primary key auto_increment,
 	nome_cliente varchar(65) not null,
     sobrenome_cliente varchar(120) not null,
-    telefone_cliente varchar(9) not null,
+    telefone_cliente varchar(11) not null,
     email_cliente varchar(65) not null,
     senha_cliente varchar(65) not null
 );
