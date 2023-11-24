@@ -29,7 +29,7 @@ public class TelaLogin extends JFrame {
 	
 	private final String placeholderEmailCpfCnpj = "E-mail/CPF/CNPJ";
 	private final String placeholderSenha = "Senha";
-
+	
 	/**
 	 * Launch the application.
 	 */
