@@ -103,7 +103,11 @@ public class TelaLogin extends JFrame {
         JButton btnLogin = new JButton("Login");
         btnLogin.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
+        		boolean loginBemSucedido = false;
         		boolean entradaValida = false;
+        		boolean loginFuncionario = false;
+        		boolean loginCliente = false;
+        		
         		
         		String emailCpfCnpj = textFieldEmailCpfCnpj.getText();
                 String senha = textFieldSenha.getText();
@@ -113,18 +117,34 @@ public class TelaLogin extends JFrame {
         		Validacoes.validaTextField(textFieldSenha.getText(), placeholderSenha, entradaValida);
     			
         		
-        		
-        		if (Conexao.validarLoginFuncionario(emailCpfCnpj, senha)) {
+        		//valida login do funcionario
+        		if (Conexao.validarLoginFuncionario(emailCpfCnpj, senha) && loginFuncionario==false) {
+        			loginFuncionario = true;
+        			loginBemSucedido = true;
 					TelaFuncionario telaFuncionario = new TelaFuncionario();
 
 	                telaFuncionario.setVisible(true);
 
 	                dispose();
 					
-				}else {
-					JOptionPane.showMessageDialog(null, "Usuário não encontrado ou senha incorreta", "Erro", JOptionPane.ERROR_MESSAGE);
-				
 				}
+        		
+        		//valida login do cliente
+        		if (Conexao.validarLoginCliente(emailCpfCnpj, senha) && loginCliente==false) {
+        			loginCliente = true;
+        			loginBemSucedido = true;
+					TelaCliente telaCliente = new TelaCliente();
+
+	                telaCliente.setVisible(true);
+
+	                dispose();
+					
+				}
+        		
+        		if (!loginBemSucedido) {
+        		    JOptionPane.showMessageDialog(null, "Usuário não encontrado ou senha incorreta", "Erro", JOptionPane.ERROR_MESSAGE);
+        		}
+        		
         		
     			if (entradaValida) {
     				

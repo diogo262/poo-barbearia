@@ -1,5 +1,9 @@
 use db_barbearia;
 
 INSERT INTO tbl_funcionario VALUES 
-(1, 'Dioguito', 'Gabardito', '1140028922', 'dioguito@berserk.com.br', '12345', 1),
-(2, 'Dioguito', 'Suuuares', '1140028932', 'dioguito.suuuares@berserk.com.br', '12345', 0);
+(DEFAULT, 'Dioguito', 'Gabardito', '1140028922', 'dioguito@berserk.com.br', '12345', 1),
+(DEFAULT, 'Dioguito', 'Suuuares', '1140028932', 'dioguito.suuuares@berserk.com.br', '12345', 0);
+
+INSERT INTO tbl_cliente VALUES 
+(DEFAULT, 'Eriku', 'Sakai', '1140028685', 'erikito@gmail.com.br', '12345'),
+(DEFAULT, 'Eriku', 'Takahashi', '1140028989', 'erikito.takahashi@gmail.com.br', '12345');

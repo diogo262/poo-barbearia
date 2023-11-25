@@ -33,4 +33,18 @@ public class Conexao {
             throw new RuntimeException("Erro ao validar o login.", e);
         }
     }
+    
+    public static boolean validarLoginCliente(String emailCpfCnpj, String senha) {
+        Connection connection = getConnection();
+
+        try {
+            String query = "SELECT * FROM tbl_cliente WHERE email_cliente = '" + emailCpfCnpj + "' AND senha_cliente = '" + senha + "'";
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+
+            return resultSet.next();
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao validar o login.", e);
+        }
+    }
 }
