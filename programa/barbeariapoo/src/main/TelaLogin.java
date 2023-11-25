@@ -3,9 +3,11 @@ package main;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import metodos.Conexao;
 import metodos.Validacoes;
 
 import javax.swing.JTextField;
@@ -103,14 +105,35 @@ public class TelaLogin extends JFrame {
         	public void actionPerformed(ActionEvent e) {
         		boolean entradaValida = false;
         		
+        		String emailCpfCnpj = textFieldEmailCpfCnpj.getText();
+                String senha = textFieldSenha.getText();
+        		
         		Validacoes.validaTextField(textFieldEmailCpfCnpj.getText(), placeholderEmailCpfCnpj, entradaValida);
         		
         		Validacoes.validaTextField(textFieldSenha.getText(), placeholderSenha, entradaValida);
     			
+        		
+        		
+        		if (Conexao.validarLoginFuncionario(emailCpfCnpj, senha)) {
+					TelaFuncionario telaFuncionario = new TelaFuncionario();
+
+	                telaFuncionario.setVisible(true);
+
+	                dispose();
+					
+				}else {
+					JOptionPane.showMessageDialog(null, "Usuário não encontrado ou senha incorreta", "Erro", JOptionPane.ERROR_MESSAGE);
+				
+				}
+        		
     			if (entradaValida) {
+    				
+    				
     				// valida os dados de entrada
     				// se true, então ->  procura no banco pelo login
     				// caso contrário -> erro
+    				
+    				
     			}
         			
         	}
