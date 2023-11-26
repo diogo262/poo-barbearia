@@ -47,4 +47,19 @@ public class Conexao {
             throw new RuntimeException("Erro ao validar o login.", e);
         }
     }
+    
+    public static boolean cadastrarCliente(String nome, String sobrenome, String telefone, String email, String senha) {
+        Connection connection = getConnection();
+
+        try {
+            String query = "INSERT INTO tbl_cliente VALUES ( DEFAULT, '" + nome + "', '" + sobrenome + "', '" + telefone + "', '" + email + "', '" + senha + "');";
+            Statement statement = connection.createStatement();
+            int result = statement.executeUpdate(query);
+
+            return result > 0;
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao cadastrar usuario.", e);
+        }
+    }
+    
 }

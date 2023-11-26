@@ -3,9 +3,11 @@ package main;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import metodos.Conexao;
 import metodos.Validacoes;
 
 import javax.swing.JTextField;
@@ -151,6 +153,27 @@ public class TelaCadastro extends JFrame {
         btnSubmit.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		boolean entradaValida = true;
+        		boolean cadastroBemSucedido = false;
+        		String nome = textFieldNome.getText();
+        		String sobrenome = textFieldSobrenome.getText();
+        		String telefone = textFieldTelefone.getText();
+        		String email = textFieldEmail.getText();
+        		String senha = textFieldSenha.getText();
+        		
+        		if(Conexao.cadastrarCliente(nome, sobrenome, telefone, email, senha)) {
+        			cadastroBemSucedido = true;
+        			JOptionPane.showMessageDialog(null, "Usuario cadastrado com sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+        			TelaInicial telaInicial = new TelaInicial();
+	                telaInicial.setVisible(true);
+	                dispose();
+        		}
+        		
+        		if (!cadastroBemSucedido) {
+        		    JOptionPane.showMessageDialog(null, "Erro ao realizar o cadastro.", "Erro", JOptionPane.ERROR_MESSAGE);
+        		}
+        		
+        		
+        		
         		
         		Validacoes.validaTextField(textFieldNome.getText(), placeholderNome, entradaValida);
 
