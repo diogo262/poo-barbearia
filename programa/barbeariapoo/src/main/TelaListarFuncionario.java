@@ -90,7 +90,7 @@ public class TelaListarFuncionario extends JFrame {
 		
 		DefaultTableModel model = new DefaultTableModel();
 
-		// Colunas
+		// Adiciona colunas ao modelo de tabela
 		model.addColumn("Nome");
 		model.addColumn("Sobrenome");
 		model.addColumn("Telefone");
@@ -102,13 +102,10 @@ public class TelaListarFuncionario extends JFrame {
 		table.setBorder(new LineBorder(new Color(0, 0, 0)));
 		table.setBounds(31, 88, 632, 230);
 
-		// Cria um JPanel e adiciona a tabela a ele pra aparecer os nomes das colunas
-		JPanel panel = new JPanel();
-		panel.setLayout(new BorderLayout());
-		panel.add(table.getTableHeader(), BorderLayout.PAGE_START);
-		panel.add(table, BorderLayout.CENTER);
-		panel.setBounds(31, 88, 632, 230);
-		contentPane.add(panel);
+		// Coloca a tabela dentro de um JScrollPane pra aparecer o nome de cada coluna, usei o Scroll pane pra poder rolar 
+		JScrollPane scrollPane = new JScrollPane(table);
+		scrollPane.setBounds(31, 88, 632, 230);
+		contentPane.add(scrollPane);
 
 		ArrayList<String[]> lista = Conexao.listaFuncionario();
 
