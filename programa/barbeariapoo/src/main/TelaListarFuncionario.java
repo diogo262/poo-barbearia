@@ -2,22 +2,34 @@ package main;
 
 import java.awt.EventQueue;
 
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTextField;
+
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
 import javax.swing.JTextPane;
+import javax.swing.JTable;
+import metodos.Conexao;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.LineBorder;
+import javax.swing.table.DefaultTableModel;
 
 public class TelaListarFuncionario extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	private JTable table;
 
 	/**
 	 * Launch the application.
@@ -60,7 +72,7 @@ public class TelaListarFuncionario extends JFrame {
         });
 		
 		JButton btnVoltar = new JButton("Voltar");
-		btnVoltar.setBounds(288, 260, 114, 23);
+		btnVoltar.setBounds(284, 327, 114, 23);
 		contentPane.add(btnVoltar);
 		
 		btnVoltar.addActionListener(new ActionListener() {
@@ -76,16 +88,33 @@ public class TelaListarFuncionario extends JFrame {
             }
         });
 		
-		JTextPane txtpnOQueVoc = new JTextPane();
-		txtpnOQueVoc.setBackground(new Color(255, 253, 233));
-		txtpnOQueVoc.setEditable(false);
-		txtpnOQueVoc.setText("Funcionarios Cadastrados");
-		txtpnOQueVoc.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		txtpnOQueVoc.setBounds(10, 11, 229, 20);
-		contentPane.add(txtpnOQueVoc);
+		DefaultTableModel model = new DefaultTableModel();
+
+		// Colunas
+		model.addColumn("Nome");
+		model.addColumn("Sobrenome");
+		model.addColumn("Telefone");
+		model.addColumn("Email");
+		model.addColumn("Senha");
+		model.addColumn("Administrador");
+
+		table = new JTable(model);
+		table.setBorder(new LineBorder(new Color(0, 0, 0)));
+		table.setBounds(31, 88, 632, 230);
+
+		// Cria um JPanel e adiciona a tabela a ele pra aparecer os nomes das colunas
+		JPanel panel = new JPanel();
+		panel.setLayout(new BorderLayout());
+		panel.add(table.getTableHeader(), BorderLayout.PAGE_START);
+		panel.add(table, BorderLayout.CENTER);
+		panel.setBounds(31, 88, 632, 230);
+		contentPane.add(panel);
+
+		ArrayList<String[]> lista = Conexao.listaFuncionario();
+
+		for (String[] funcionario : lista) {
+		    model.addRow(funcionario);
+		}
 		
-		JButton btnRemoverFunc = new JButton("Remover Funcionário");
-		btnRemoverFunc.setBounds(465, 46, 148, 31);
-		contentPane.add(btnRemoverFunc);
 	}
 }
