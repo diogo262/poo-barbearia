@@ -54,20 +54,18 @@ create table tbl_avaliacao (
     foreign key(cd_funcionario) references tbl_funcionario(cd_funcionario)
 );
 
-create table tbl_servico (
-	cd_servico int primary key auto_increment,
-	nome_servico varchar(45) not null,
-    preco_servico decimal(8, 2) not null
+create table tbl_status (
+	cd_status int primary key auto_increment,
+    nome_status varchar(35) not null
 );
 
 create table tbl_pedido (
-	cd_servico int null, 
     cd_cliente int null,
     cd_funcionario int null, 
-    status_pedido bit not null, 
+    cd_status int null, 
     hora_pedido time not null,
     data_pedido date not null,
-    foreign key(cd_servico) references tbl_servico(cd_servico),
+	foreign key(cd_status) references tbl_status(cd_status),
     foreign key(cd_cliente) references tbl_cliente(cd_cliente),
     foreign key(cd_funcionario) references tbl_funcionario(cd_funcionario)
 );

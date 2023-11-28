@@ -52,8 +52,8 @@ public class TelaMarcarChegada extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JButton btnEntrarFila = new JButton("Entrar na Fila");
-		btnEntrarFila.setBounds(272, 151, 148, 31);
+		JButton btnEntrarFila = new JButton("Sair da fila");
+		btnEntrarFila.setBounds(379, 155, 148, 31);
 		contentPane.add(btnEntrarFila);
 		
         btnEntrarFila.addActionListener(new ActionListener() {
@@ -63,7 +63,7 @@ public class TelaMarcarChegada extends JFrame {
         });
 		
 		JButton btnVoltar = new JButton("Voltar");
-		btnVoltar.setBounds(291, 327, 114, 23);
+		btnVoltar.setBounds(285, 330, 114, 23);
 		contentPane.add(btnVoltar);
 		
 		btnVoltar.addActionListener(new ActionListener() {
@@ -92,5 +92,9 @@ public class TelaMarcarChegada extends JFrame {
 		txtpnH.setBackground(new Color(255, 253, 233));
 		txtpnH.setBounds(10, 43, 616, 20);
 		contentPane.add(txtpnH);
+		
+		JButton btnEntrarFila_1 = new JButton("Entrar na Fila");
+		btnEntrarFila_1.setBounds(166, 155, 148, 31);
+		contentPane.add(btnEntrarFila_1);
 	}
 }

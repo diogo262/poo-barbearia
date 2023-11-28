@@ -78,15 +78,13 @@ public class TelaInicial extends JFrame {
         });
 		
 		JButton btnSair = new JButton("Sair");
-		btnSair.setBounds(294, 210, 114, 23);
+		btnSair.setBounds(290, 205, 114, 23);
 		contentPane.add(btnSair);
 		
 		btnSair.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
             	dispose();
-            	
             }
         });
 		
@@ -95,7 +93,7 @@ public class TelaInicial extends JFrame {
 		txtpnOQueVoc.setEditable(false);
 		txtpnOQueVoc.setText("O que você gostaria de fazer?");
 		txtpnOQueVoc.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		txtpnOQueVoc.setBounds(256, 44, 189, 20);
+		txtpnOQueVoc.setBounds(250, 47, 196, 20);
 		contentPane.add(txtpnOQueVoc);
 	}
 }

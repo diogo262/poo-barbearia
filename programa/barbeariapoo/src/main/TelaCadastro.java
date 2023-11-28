@@ -154,11 +154,11 @@ public class TelaCadastro extends JFrame {
         		
     			String conteudoTextField = textFieldNome.getText();
     			if (conteudoTextField.length() > 15) 
-    				Validacoes.chamaDialogErro("Erro!  O nome deve conter menos de (blablebli) caracteres.", "Nome inválido!");
+    				Validacoes.chamaDialogErro("Erro!  O nome deve conter menos de 16 caracteres.", "Nome inválido!");
     			else {
         			conteudoTextField = textFieldSobrenome.getText();
         			if (conteudoTextField.length() > 35) 
-        				Validacoes.chamaDialogErro("Erro!  O sobrenome deve conter menos de (blablebli) caracteres.", "Sobrenome inválido!");
+        				Validacoes.chamaDialogErro("Erro!  O sobrenome deve conter menos de 36 caracteres.", "Sobrenome inválido!");
         			else {
             			conteudoTextField = textFieldEmail.getText();
         				if (Validacoes.validaEmail(conteudoTextField)) {

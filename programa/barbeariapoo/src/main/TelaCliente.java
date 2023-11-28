@@ -5,6 +5,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import metodos.Cliente;
+
 import javax.swing.JTextField;
 import java.awt.Color;
 import java.awt.Font;
@@ -41,7 +44,7 @@ public class TelaCliente extends JFrame {
 	 */
 	public TelaCliente(int cdCli) {
 		this.cdCliente = cdCli;
-				
+						
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 700, 400);
@@ -53,7 +56,7 @@ public class TelaCliente extends JFrame {
 		contentPane.setLayout(null);
 		
 		JButton btnMarcarChegada = new JButton("Marcar Chegada");
-		btnMarcarChegada.setBounds(43, 138, 148, 31);
+		btnMarcarChegada.setBounds(272, 137, 148, 31);
 		contentPane.add(btnMarcarChegada);
 		
         btnMarcarChegada.addActionListener(new ActionListener() {
@@ -61,20 +64,6 @@ public class TelaCliente extends JFrame {
                 TelaMarcarChegada telaMarcarChegada = new TelaMarcarChegada(cdCliente);
 
                 telaMarcarChegada.setVisible(true);
-
-                dispose();
-            }
-        });
-		
-		JButton btnAvaliarFunc = new JButton("Avaliar Funcionário");
-		btnAvaliarFunc.setBounds(271, 138, 148, 31);
-		contentPane.add(btnAvaliarFunc);
-		
-		btnAvaliarFunc.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                TelaAvaliarFuncionario telaAvaliarFuncionario = new TelaAvaliarFuncionario(cdCliente);
-
-                telaAvaliarFuncionario.setVisible(true);
 
                 dispose();
             }
@@ -94,24 +83,10 @@ public class TelaCliente extends JFrame {
 		JTextPane txtpnOQueVoc = new JTextPane();
 		txtpnOQueVoc.setBackground(new Color(255, 253, 233));
 		txtpnOQueVoc.setEditable(false);
-		txtpnOQueVoc.setText("Bem-vindo(a), NomedoCliente!");
+		txtpnOQueVoc.setText(String.format("Bem-vindo(a), %s!", Cliente.pegaNomeCliente(cdCliente)));
 		txtpnOQueVoc.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txtpnOQueVoc.setBounds(10, 11, 229, 20);
 		contentPane.add(txtpnOQueVoc);
-		
-		JButton btnListarServ = new JButton("Listar Serviços");
-		btnListarServ.setBounds(485, 138, 148, 31);
-		contentPane.add(btnListarServ);
-		
-		btnListarServ.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                TelaListarServico telaListarServico = new TelaListarServico(cdCliente);
-
-                telaListarServico.setVisible(true);
-
-                dispose();
-            }
-        });
 		
 	}
 }

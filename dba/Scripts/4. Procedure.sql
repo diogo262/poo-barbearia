@@ -81,3 +81,22 @@ DELIMITER $$
 DELIMITER ;;
 
 call sp_insereClienteJuridico (2, '12345678901234');
+
+/* Procedure para consultar o nome do usuario por chave primaria */
+
+DELIMITER $$
+	CREATE PROCEDURE sp_consultaClientePorCdCliente
+		(
+            vCdCliente int
+		)
+	BEGIN
+		SELECT 
+			nome_cliente
+		FROM 
+			tbl_cliente
+		WHERE 
+			cd_cliente = vCdCliente;
+	END $$
+DELIMITER ;;
+
+call sp_consultaClientePorCdCliente(1);
