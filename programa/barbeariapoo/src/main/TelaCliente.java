@@ -18,6 +18,7 @@ public class TelaCliente extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	private int cdCliente;
 
 	/**
 	 * Launch the application.
@@ -38,7 +39,9 @@ public class TelaCliente extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public TelaCliente() {
+	public TelaCliente(int cdCli) {
+		this.cdCliente = cdCli;
+				
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 700, 400);
@@ -55,7 +58,7 @@ public class TelaCliente extends JFrame {
 		
         btnMarcarChegada.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                TelaMarcarChegada telaMarcarChegada = new TelaMarcarChegada();
+                TelaMarcarChegada telaMarcarChegada = new TelaMarcarChegada(cdCliente);
 
                 telaMarcarChegada.setVisible(true);
 
@@ -63,14 +66,13 @@ public class TelaCliente extends JFrame {
             }
         });
 		
-		
 		JButton btnAvaliarFunc = new JButton("Avaliar Funcionário");
 		btnAvaliarFunc.setBounds(271, 138, 148, 31);
 		contentPane.add(btnAvaliarFunc);
 		
 		btnAvaliarFunc.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                TelaAvaliarFuncionario telaAvaliarFuncionario = new TelaAvaliarFuncionario();
+                TelaAvaliarFuncionario telaAvaliarFuncionario = new TelaAvaliarFuncionario(cdCliente);
 
                 telaAvaliarFuncionario.setVisible(true);
 
@@ -85,9 +87,7 @@ public class TelaCliente extends JFrame {
 		btnSair.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
             	dispose();
-            	
             }
         });
 		
@@ -105,7 +105,7 @@ public class TelaCliente extends JFrame {
 		
 		btnListarServ.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                TelaListarServico telaListarServico = new TelaListarServico();
+                TelaListarServico telaListarServico = new TelaListarServico(cdCliente);
 
                 telaListarServico.setVisible(true);
 

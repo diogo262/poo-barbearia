@@ -18,7 +18,8 @@ public class TelaListarServico extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-
+	private int cdFuncionario;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -38,7 +39,9 @@ public class TelaListarServico extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public TelaListarServico() {
+	public TelaListarServico(int cdFuncionario) {
+		this.cdFuncionario = cdFuncionario;
+		
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 700, 400);
@@ -66,8 +69,7 @@ public class TelaListarServico extends JFrame {
 		btnVoltar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
-            	TelaFuncionario telaFuncionario = new TelaFuncionario();
+            	TelaFuncionario telaFuncionario = new TelaFuncionario(cdFuncionario);
 
                 telaFuncionario.setVisible(true);
             	

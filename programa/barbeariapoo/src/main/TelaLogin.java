@@ -8,12 +8,12 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import metodos.Conexao;
+import metodos.Login;
 import metodos.Validacoes;
 
 import javax.swing.JTextField;
 import java.awt.Color;
 import java.awt.Font;
-import javax.swing.SwingConstants;
 import javax.swing.JTextPane;
 
 import java.awt.event.ActionEvent;
@@ -108,54 +108,49 @@ public class TelaLogin extends JFrame {
         		boolean loginFuncionario = false;
         		boolean loginCliente = false;
         		
-        		
         		String emailCpfCnpj = textFieldEmailCpfCnpj.getText();
                 String senha = textFieldSenha.getText();
         		
         		Validacoes.validaTextField(textFieldEmailCpfCnpj.getText(), placeholderEmailCpfCnpj, entradaValida);
         		
         		Validacoes.validaTextField(textFieldSenha.getText(), placeholderSenha, entradaValida);
-    			
         		
         		//valida login do funcionario
         		if (Conexao.validarLoginFuncionario(emailCpfCnpj, senha) && loginFuncionario==false) {
         			loginFuncionario = true;
         			loginBemSucedido = true;
-					TelaFuncionario telaFuncionario = new TelaFuncionario();
+        			
+        			int cdFuncionario = Login.pegaCredencialFuncionario(emailCpfCnpj, senha);
+        			
+					TelaFuncionario telaFuncionario = new TelaFuncionario(cdFuncionario);
 
 	                telaFuncionario.setVisible(true);
 
 	                dispose();
-					
 				}
         		
         		//valida login do cliente
         		if (Conexao.validarLoginCliente(emailCpfCnpj, senha) && loginCliente==false) {
         			loginCliente = true;
         			loginBemSucedido = true;
-					TelaCliente telaCliente = new TelaCliente();
+        			
+        			int cdCliente = Login.pegaCredencialCliente(emailCpfCnpj, senha);
+        			
+					TelaCliente telaCliente = new TelaCliente(cdCliente);
 
 	                telaCliente.setVisible(true);
 
 	                dispose();
-					
 				}
         		
-        		if (!loginBemSucedido) {
+        		if (!loginBemSucedido)
         		    JOptionPane.showMessageDialog(null, "Usuário não encontrado ou senha incorreta", "Erro", JOptionPane.ERROR_MESSAGE);
-        		}
-        		
         		
     			if (entradaValida) {
-    				
-    				
     				// valida os dados de entrada
     				// se true, então ->  procura no banco pelo login
     				// caso contrário -> erro
-    				
-    				
     			}
-        			
         	}
         });
         btnLogin.setFont(new Font("Tahoma", Font.PLAIN, 13));

@@ -7,21 +7,15 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JTextField;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Font;
-import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-import javax.swing.JTextPane;
 import javax.swing.JTable;
 import metodos.Conexao;
-import javax.swing.border.BevelBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
@@ -30,6 +24,7 @@ public class TelaListarFuncionario extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTable table;
+	private int cdFuncionario;
 
 	/**
 	 * Launch the application.
@@ -50,7 +45,9 @@ public class TelaListarFuncionario extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public TelaListarFuncionario() {
+	public TelaListarFuncionario(int cdFunc) {
+		this.cdFuncionario = cdFunc;
+		
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 700, 400);
@@ -78,13 +75,11 @@ public class TelaListarFuncionario extends JFrame {
 		btnVoltar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
-            	TelaFuncionario telaFuncionario = new TelaFuncionario();
+            	TelaFuncionario telaFuncionario = new TelaFuncionario(cdFuncionario);
 
                 telaFuncionario.setVisible(true);
             	
             	dispose();
-            	
             }
         });
 		

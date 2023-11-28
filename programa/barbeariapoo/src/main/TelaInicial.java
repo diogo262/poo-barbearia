@@ -63,7 +63,6 @@ public class TelaInicial extends JFrame {
             }
         });
 		
-		
 		JButton btnLogin = new JButton("Iniciar Sessão");
 		btnLogin.setBounds(274, 147, 148, 31);
 		contentPane.add(btnLogin);
@@ -98,35 +97,5 @@ public class TelaInicial extends JFrame {
 		txtpnOQueVoc.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txtpnOQueVoc.setBounds(256, 44, 189, 20);
 		contentPane.add(txtpnOQueVoc);
-		
-		JButton btnCliente = new JButton("Teste tela cliente");
-		btnCliente.setBounds(235, 327, 178, 23);
-		contentPane.add(btnCliente);
-		
-		btnCliente.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                TelaCliente telaCliente = new TelaCliente();
-
-                telaCliente.setVisible(true);
-
-                dispose();
-            }
-        });
-		
-		
-		JButton btnFuncionario = new JButton("Teste tela funcionario");
-		btnFuncionario.setBounds(35, 327, 178, 23);
-		contentPane.add(btnFuncionario);
-		
-		btnFuncionario.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                TelaFuncionario telaFuncionario = new TelaFuncionario();
-
-                telaFuncionario.setVisible(true);
-
-                dispose();
-            }
-        });
-		
 	}
 }

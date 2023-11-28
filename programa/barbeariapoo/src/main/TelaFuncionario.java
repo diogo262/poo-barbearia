@@ -18,6 +18,7 @@ public class TelaFuncionario extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	private int cdFuncionario; 
 
 	/**
 	 * Launch the application.
@@ -38,7 +39,9 @@ public class TelaFuncionario extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public TelaFuncionario() {
+	public TelaFuncionario(int cdFunc) {
+		this.cdFuncionario = cdFunc;
+				
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 700, 400);
@@ -55,7 +58,7 @@ public class TelaFuncionario extends JFrame {
 		
         btnListarFunc.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                TelaListarFuncionario telaListarFuncionario = new TelaListarFuncionario();
+                TelaListarFuncionario telaListarFuncionario = new TelaListarFuncionario(cdFuncionario);
 
                 telaListarFuncionario.setVisible(true);
 
@@ -70,7 +73,7 @@ public class TelaFuncionario extends JFrame {
 		
 		btnListarFila.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                TelaListarFila telaListarFila = new TelaListarFila();
+                TelaListarFila telaListarFila = new TelaListarFila(cdFuncionario);
 
                 telaListarFila.setVisible(true);
 
@@ -85,9 +88,7 @@ public class TelaFuncionario extends JFrame {
 		btnSair.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
             	dispose();
-            	
             }
         });
 		
@@ -105,38 +106,9 @@ public class TelaFuncionario extends JFrame {
 		
 		btnListarCli.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                TelaListarCliente telaListarCliente = new TelaListarCliente();
+                TelaListarCliente telaListarCliente = new TelaListarCliente(cdFuncionario);
 
                 telaListarCliente.setVisible(true);
-
-                dispose();
-            }
-        });
-		
-		
-		JButton btnListarUni = new JButton("Listar Unidade");
-		btnListarUni.setBounds(132, 199, 148, 31);
-		contentPane.add(btnListarUni);
-		
-		btnListarUni.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                TelaListarUnidade telaListarUnidade = new TelaListarUnidade();
-
-                telaListarUnidade.setVisible(true);
-
-                dispose();
-            }
-        });
-		
-		JButton btnListarServ = new JButton("Listar Serviço");
-		btnListarServ.setBounds(381, 199, 148, 31);
-		contentPane.add(btnListarServ);
-		
-		btnListarServ.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                TelaListarServico telaListarServico = new TelaListarServico();
-
-                telaListarServico.setVisible(true);
 
                 dispose();
             }

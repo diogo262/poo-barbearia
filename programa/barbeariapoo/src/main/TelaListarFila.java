@@ -18,6 +18,7 @@ public class TelaListarFila extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	private int cdFuncionario;
 
 	/**
 	 * Launch the application.
@@ -38,7 +39,9 @@ public class TelaListarFila extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public TelaListarFila() {
+	public TelaListarFila(int cdFunc) {
+		this.cdFuncionario = cdFunc;
+		
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 700, 400);
@@ -67,7 +70,7 @@ public class TelaListarFila extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-            	TelaFuncionario telaFuncionario = new TelaFuncionario();
+            	TelaFuncionario telaFuncionario = new TelaFuncionario(cdFuncionario);
 
                 telaFuncionario.setVisible(true);
             	
