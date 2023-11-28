@@ -45,3 +45,39 @@ DELIMITER $$
 DELIMITER ;;
 
 call sp_consultaLoginCliente ('erikito@gmail.com.br', '12345');
+
+/* Procedure para inserir um cliente físico */
+
+DELIMITER $$
+	CREATE PROCEDURE sp_insereClienteFisico
+		(
+            vCdCliente int,
+			vCPFCliente varchar(11)
+		)
+	BEGIN
+		INSERT INTO 
+			tbl_cliente_fisico
+		VALUES
+			(vCdCliente, vCPFCliente);
+	END $$
+DELIMITER ;;
+
+call sp_insereClienteFisico (1, '12345678901');
+
+/* Procedure para inserir um cliente juridico */
+
+DELIMITER $$
+	CREATE PROCEDURE sp_insereClienteJuridico
+		(
+            vCdCliente int,
+			vCNPJCliente varchar(14)
+		)
+	BEGIN
+		INSERT INTO 
+			tbl_cliente_juridico
+		VALUES
+			(vCdCliente, vCNPJCliente);
+	END $$
+DELIMITER ;;
+
+call sp_insereClienteJuridico (2, '12345678901234');

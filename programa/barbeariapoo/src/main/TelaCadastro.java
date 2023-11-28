@@ -7,6 +7,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import metodos.Cadastro;
 import metodos.Conexao;
 import metodos.Validacoes;
 
@@ -79,8 +80,6 @@ public class TelaCadastro extends JFrame {
 		txtpnBemvindo.setBounds(10, 11, 213, 23);
 		contentPane.add(txtpnBemvindo);
 		
-		
-		
 		textFieldNome = new JTextField();
 		textFieldNome.setBounds(105, 91, 213, 37);
 		contentPane.add(textFieldNome);
@@ -148,64 +147,51 @@ public class TelaCadastro extends JFrame {
             }
         });
         
-        
         JButton btnSubmit = new JButton("Cadastrar-se");
         btnSubmit.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		boolean entradaValida = true;
         		boolean cadastroBemSucedido = false;
-        		String nome = textFieldNome.getText();
-        		String sobrenome = textFieldSobrenome.getText();
-        		String telefone = textFieldTelefone.getText();
-        		String email = textFieldEmail.getText();
-        		String senha = textFieldSenha.getText();
         		
-        		if(Conexao.cadastrarCliente(nome, sobrenome, telefone, email, senha)) {
-        			cadastroBemSucedido = true;
-        			JOptionPane.showMessageDialog(null, "Usuario cadastrado com sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-        			TelaInicial telaInicial = new TelaInicial();
-	                telaInicial.setVisible(true);
-	                dispose();
-        		}
-        		
-        		if (!cadastroBemSucedido) {
-        		    JOptionPane.showMessageDialog(null, "Erro ao realizar o cadastro.", "Erro", JOptionPane.ERROR_MESSAGE);
-        		}
-        		
-        		
-        		
-        		
-        		Validacoes.validaTextField(textFieldNome.getText(), placeholderNome, entradaValida);
-
-        		Validacoes.validaTextField(textFieldSobrenome.getText(), placeholderSobrenome, entradaValida);
-
-        		Validacoes.validaTextField(textFieldEmail.getText(), placeholderEmail, entradaValida);
-
-        		Validacoes.validaTextField(textFieldSenha.getText(), placeholderSenha, entradaValida);
-
-        		Validacoes.validaTextField(textFieldCpfCnpj.getText(), placeholderCNPJCPF, entradaValida);
-        		
-        		Validacoes.validaTextField(textFieldTelefone.getText(), placeholderTelefone, entradaValida);
-        		
-        		if (entradaValida) {
-        			String conteudoTextField = textFieldNome.getText();
-        			if (conteudoTextField.length() > 1) 
-        				Validacoes.chamaDialogErro("Erro!  O nome deve conter menos de (blablebli) caracteres.", "Nome inválido!");
+    			String conteudoTextField = textFieldNome.getText();
+    			if (conteudoTextField.length() > 15) 
+    				Validacoes.chamaDialogErro("Erro!  O nome deve conter menos de (blablebli) caracteres.", "Nome inválido!");
+    			else {
+        			conteudoTextField = textFieldSobrenome.getText();
+        			if (conteudoTextField.length() > 35) 
+        				Validacoes.chamaDialogErro("Erro!  O sobrenome deve conter menos de (blablebli) caracteres.", "Sobrenome inválido!");
         			else {
-            			conteudoTextField = textFieldSobrenome.getText();
-            			if (conteudoTextField.length() > 1) 
-            				Validacoes.chamaDialogErro("Erro!  O sobrenome deve conter menos de (blablebli) caracteres.", "Sobrenome inválido!");
-            			else {
-                			conteudoTextField = textFieldEmail.getText();
-            				if (Validacoes.validaEmail(conteudoTextField)) {
-                				// valida os dados de entrada
-                				// se true, então ->  procura no banco pelo login
-                				// caso contrário -> erro
-            				}
-            			}
+            			conteudoTextField = textFieldEmail.getText();
+        				if (Validacoes.validaEmail(conteudoTextField)) {
+	    	        		if (Validacoes.validaTextField(textFieldSenha.getText(), placeholderSenha)) {
+		        				if (Validacoes.validaTextField(textFieldTelefone.getText(), placeholderTelefone)) {
+		        	        		String nome = textFieldNome.getText(),
+		        	        		sobrenome = textFieldSobrenome.getText(),
+		        	        		email = textFieldEmail.getText(),
+		    	        			telefone = textFieldTelefone.getText(),
+		    	        			senha = textFieldSenha.getText();
+		        	        		
+		    	        			String inscricaoNacional = textFieldCpfCnpj.getText(); // famoso cpf/cnpj
+		    	        			String tipoInscricaoNacional = Validacoes.validaInscricaoNacional(inscricaoNacional);
+		        	        		
+		    	        			System.out.println(tipoInscricaoNacional);
+		    	        			
+		    	        			if (tipoInscricaoNacional.length() > 0) {
+	    	        					if(Cadastro.cadastrarCliente(nome, sobrenome, telefone, email, senha, inscricaoNacional, tipoInscricaoNacional)) {
+	    	        	        			cadastroBemSucedido = true;
+	    	        	        			JOptionPane.showMessageDialog(null, "Usuario cadastrado com sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+	    	        	        			TelaInicial telaInicial = new TelaInicial();
+	    	        		                telaInicial.setVisible(true);
+	    	        		                dispose();
+	    	        	        		}
+	    	        	        		
+	    	        	        		if (!cadastroBemSucedido)
+	    	        	        		    JOptionPane.showMessageDialog(null, "Erro ao realizar o cadastro.", "Erro", JOptionPane.ERROR_MESSAGE);
+		    	        			}
+		        				}	
+	    	        		}
+        				}
         			}
-        		}
-
+    			}
         	}
         });
         btnSubmit.setFont(new Font("Tahoma", Font.PLAIN, 13));

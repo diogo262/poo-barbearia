@@ -37,4 +37,27 @@ public class Login {
 	public static int pegaCredencialCliente(String email, String senha) {
 		return pegaCredencial("sp_consultaLoginCliente", email, senha);
 	}
+	
+    static boolean validarLogin(String query) {
+        Connection connection = Conexao.getConnection();
+
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+
+            return resultSet.next();
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao validar o login.", e);
+        }
+    }
+    
+    public static boolean validarLoginFuncionario(String emailCpfCnpj, String senha) {
+    	String query = "SELECT * FROM tbl_funcionario WHERE email_funcionario = '" + emailCpfCnpj + "' AND senha_funcionario = '" + senha + "'";
+    	return validarLogin(query);
+    }
+    
+    public static boolean validarLoginCliente(String emailCpfCnpj, String senha) {
+        String query = "SELECT * FROM tbl_cliente WHERE email_cliente = '" + emailCpfCnpj + "' AND senha_cliente = '" + senha + "'";
+        return validarLogin(query);
+    }
 }

@@ -17,3 +17,20 @@ WHERE
 	email_funcionario = 'dioguito@berserk.com.br' 
     AND 
     senha_funcionario = '12345';
+    
+/* Consultando dados na tabela cliente */
+
+SELECT 
+	*
+FROM
+	tbl_cliente;
+
+SELECT 
+	*
+FROM
+	tbl_cliente_fisico;
+    
+SELECT 
+	*
+FROM
+	tbl_cliente_juridico;

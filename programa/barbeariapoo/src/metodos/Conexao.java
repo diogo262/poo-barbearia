@@ -20,48 +20,6 @@ public class Conexao {
             throw new RuntimeException("Erro na conexão com o Banco de Dados.", e);
         }
     }
-
-    public static boolean validarLoginFuncionario(String emailCpfCnpj, String senha) {
-        Connection connection = getConnection();
-
-        try {
-            String query = "SELECT * FROM tbl_funcionario WHERE email_funcionario = '" + emailCpfCnpj + "' AND senha_funcionario = '" + senha + "'";
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(query);
-
-            return resultSet.next();
-        } catch (SQLException e) {
-            throw new RuntimeException("Erro ao validar o login.", e);
-        }
-    }
-    
-    public static boolean validarLoginCliente(String emailCpfCnpj, String senha) {
-        Connection connection = getConnection();
-
-        try {
-            String query = "SELECT * FROM tbl_cliente WHERE email_cliente = '" + emailCpfCnpj + "' AND senha_cliente = '" + senha + "'";
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(query);
-
-            return resultSet.next();
-        } catch (SQLException e) {
-            throw new RuntimeException("Erro ao validar o login.", e);
-        }
-    }
-    
-    public static boolean cadastrarCliente(String nome, String sobrenome, String telefone, String email, String senha) {
-        Connection connection = getConnection();
-
-        try {
-            String query = "INSERT INTO tbl_cliente VALUES ( DEFAULT, '" + nome + "', '" + sobrenome + "', '" + telefone + "', '" + email + "', '" + senha + "');";
-            Statement statement = connection.createStatement();
-            int result = statement.executeUpdate(query);
-
-            return result > 0; //true se pelo menos uma linha for afetada
-        } catch (SQLException e) {
-            throw new RuntimeException("Erro ao cadastrar usuario.", e);
-        }
-    }
     
     public static ArrayList<String[]> listaFuncionario() {
         ArrayList<String[]> lista = new ArrayList<String[]>();

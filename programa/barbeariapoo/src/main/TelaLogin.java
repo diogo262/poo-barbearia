@@ -104,52 +104,44 @@ public class TelaLogin extends JFrame {
         btnLogin.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		boolean loginBemSucedido = false;
-        		boolean entradaValida = false;
         		boolean loginFuncionario = false;
         		boolean loginCliente = false;
         		
         		String emailCpfCnpj = textFieldEmailCpfCnpj.getText();
                 String senha = textFieldSenha.getText();
         		
-        		Validacoes.validaTextField(textFieldEmailCpfCnpj.getText(), placeholderEmailCpfCnpj, entradaValida);
+        		boolean userValido = Validacoes.validaTextField(textFieldEmailCpfCnpj.getText(), placeholderEmailCpfCnpj),
+        		senhaValida = Validacoes.validaTextField(textFieldSenha.getText(), placeholderSenha);
         		
-        		Validacoes.validaTextField(textFieldSenha.getText(), placeholderSenha, entradaValida);
-        		
-        		//valida login do funcionario
-        		if (Conexao.validarLoginFuncionario(emailCpfCnpj, senha) && loginFuncionario==false) {
-        			loginFuncionario = true;
-        			loginBemSucedido = true;
-        			
-        			int cdFuncionario = Login.pegaCredencialFuncionario(emailCpfCnpj, senha);
-        			
-					TelaFuncionario telaFuncionario = new TelaFuncionario(cdFuncionario);
+    			if (userValido && senhaValida) {
+    				//valida login do funcionario
+            		if (Login.validarLoginFuncionario(emailCpfCnpj, senha)) {
+            			loginBemSucedido = true;
+            			
+            			int cdFuncionario = Login.pegaCredencialFuncionario(emailCpfCnpj, senha);
+            			
+    					TelaFuncionario telaFuncionario = new TelaFuncionario(cdFuncionario);
 
-	                telaFuncionario.setVisible(true);
+    	                telaFuncionario.setVisible(true);
 
-	                dispose();
-				}
-        		
-        		//valida login do cliente
-        		if (Conexao.validarLoginCliente(emailCpfCnpj, senha) && loginCliente==false) {
-        			loginCliente = true;
-        			loginBemSucedido = true;
-        			
-        			int cdCliente = Login.pegaCredencialCliente(emailCpfCnpj, senha);
-        			
-					TelaCliente telaCliente = new TelaCliente(cdCliente);
+    	                dispose();
+    				}
+            		
+            		//valida login do cliente
+            		if (Login.validarLoginCliente(emailCpfCnpj, senha)) {
+            			loginBemSucedido = true;
+            			
+            			int cdCliente = Login.pegaCredencialCliente(emailCpfCnpj, senha);
+            			
+    					TelaCliente telaCliente = new TelaCliente(cdCliente);
 
-	                telaCliente.setVisible(true);
+    	                telaCliente.setVisible(true);
 
-	                dispose();
-				}
-        		
-        		if (!loginBemSucedido)
-        		    JOptionPane.showMessageDialog(null, "Usuário não encontrado ou senha incorreta", "Erro", JOptionPane.ERROR_MESSAGE);
-        		
-    			if (entradaValida) {
-    				// valida os dados de entrada
-    				// se true, então ->  procura no banco pelo login
-    				// caso contrário -> erro
+    	                dispose();
+    				}
+            		
+            		if (!loginBemSucedido)
+            		    JOptionPane.showMessageDialog(null, "Usuário não encontrado ou senha incorreta", "Erro", JOptionPane.ERROR_MESSAGE);
     			}
         	}
         });
