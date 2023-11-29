@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
@@ -16,6 +17,8 @@ import java.util.ArrayList;
 
 import javax.swing.JTable;
 import metodos.Conexao;
+import metodos.Funcionario;
+
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
@@ -86,6 +89,7 @@ public class TelaListarFuncionario extends JFrame {
 		DefaultTableModel model = new DefaultTableModel();
 
 		// Adiciona colunas ao modelo de tabela
+		model.addColumn("CdFuncionario");
 		model.addColumn("Nome");
 		model.addColumn("Sobrenome");
 		model.addColumn("Telefone");
@@ -101,8 +105,31 @@ public class TelaListarFuncionario extends JFrame {
 		JScrollPane scrollPane = new JScrollPane(table);
 		scrollPane.setBounds(31, 88, 632, 230);
 		contentPane.add(scrollPane);
+		
+		JButton btnDelFunc = new JButton("Excluir Funcionário");
+		btnDelFunc.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        int linhaSelecionada = table.getSelectedRow();
+		        if(linhaSelecionada != -1) {
+		            int confirma = JOptionPane.showConfirmDialog(null, "Tem certeza de que deseja excluir este funcionário?", "Confirmação", JOptionPane.YES_NO_OPTION);
+		            if(confirma == JOptionPane.YES_OPTION) {
+		                DefaultTableModel model = (DefaultTableModel) table.getModel();
+		                Funcionario.excluirFuncionario(model, linhaSelecionada);
+		            }
+		        }
+		    }
+		});
 
-		ArrayList<String[]> lista = Conexao.listaFuncionario();
+		btnDelFunc.setBounds(504, 43, 159, 29);
+		contentPane.add(btnDelFunc);
+
+
+
+
+		
+		
+
+		ArrayList<String[]> lista = Funcionario.listaFuncionario();
 
 		for (String[] funcionario : lista) {
 		    model.addRow(funcionario);
