@@ -3,6 +3,7 @@ package domain;
 import java.sql.Date;
 
 public class Pedido<F extends Funcionario, C extends Cliente> {
+	private int cdPedido;
 	private Servico Servico;
 	private C cliente;
 	private F funcionario;
@@ -10,9 +11,20 @@ public class Pedido<F extends Funcionario, C extends Cliente> {
 	private Date horaPedido;
 	private Date dataPedido;
 	
+	public int getCdPedido() {
+		return cdPedido;
+	}
+	public void setCdPedido(int cdPedido) {
+		this.cdPedido = cdPedido;
+	}
+	
+	public boolean isStatusPedido() {
+		return statusPedido;
+	}
 	public Servico getServico() {
 		return Servico;
 	}
+	
 	public void setServico(Servico servico) {
 		Servico = servico;
 	}

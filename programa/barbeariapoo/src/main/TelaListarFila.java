@@ -4,7 +4,17 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
+import javax.swing.table.DefaultTableModel;
+
+import domain.FuncionarioFisico;
+import domain.FuncionarioJuridico;
+import domain.Pedido;
+import metodos.Fila;
+import metodos.Funcionario;
+
 import javax.swing.JTextField;
 import java.awt.Color;
 import java.awt.Font;
@@ -12,14 +22,17 @@ import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.JTextPane;
 
 public class TelaListarFila extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private int cdFuncionario;
-
+	private JTable table;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -39,9 +52,7 @@ public class TelaListarFila extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public TelaListarFila(int cdFunc) {
-		this.cdFuncionario = cdFunc;
-		
+	public TelaListarFila(int cdFunc) {		
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 700, 400);
@@ -70,7 +81,7 @@ public class TelaListarFila extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-            	TelaFuncionario telaFuncionario = new TelaFuncionario(cdFuncionario);
+            	TelaFuncionario telaFuncionario = new TelaFuncionario(cdFunc);
 
                 telaFuncionario.setVisible(true);
             	
@@ -78,6 +89,34 @@ public class TelaListarFila extends JFrame {
             	
             }
         });
+
+		DefaultTableModel model = new DefaultTableModel();
+
+		// Adiciona colunas ao modelo de tabela
+		model.addColumn("cdPedido");
+		model.addColumn("cdFuncionario");
+		model.addColumn("cdStatus");
+		model.addColumn("horaPedido");
+		model.addColumn("dataPedido");
+		model.addColumn("nomeCliente");
+		model.addColumn("sobrenomeCliente");
+		model.addColumn("telefoneCliente");
+		model.addColumn("emailCliente");
+		model.addColumn("inscricaoNacional");
+		
+		table = new JTable(model);
+		table.setBorder(new LineBorder(new Color(0, 0, 0)));
+		table.setBounds(31, 88, 632, 230);
+		
+		List<Pedido<?, ?>> lista = Fila.listarFila();
+		
+		for (Pedido<?, ?> ped: lista) {
+			if (ped.getFuncionario().getClass() == FuncionarioFisico.class) {
+				
+			} else if (ped.getFuncionario().getClass() == FuncionarioJuridico.class) {
+				
+			}
+		}
 		
 		JTextPane txtpnOQueVoc = new JTextPane();
 		txtpnOQueVoc.setBackground(new Color(255, 253, 233));

@@ -7,7 +7,6 @@ public abstract class Cliente {
 	private String telefoneCliente;
 	private String emailCliente;
 	private String senhaCliente;
-	private boolean admCliente;
 	
 	public int getCdCliente() {
 		return cdCliente;
@@ -49,12 +48,5 @@ public abstract class Cliente {
 	}
 	public void setSenhaCliente(String senhaCliente) {
 		this.senhaCliente = senhaCliente;
-	}
-	
-	public boolean getAdmCliente() {
-		return admCliente;
-	}
-	public void setAdmCliente(boolean admCliente) {
-		this.admCliente = admCliente;
 	}
 }
