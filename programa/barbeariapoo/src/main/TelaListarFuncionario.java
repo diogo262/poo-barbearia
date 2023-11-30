@@ -149,7 +149,5 @@ public class TelaListarFuncionario extends JFrame {
 		for (String[] funcionario : lista) {
 		    model.addRow(funcionario);
 		}
-		
-		
 	}
 }
