@@ -21,6 +21,7 @@ import metodos.Funcionario;
 
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.SwingConstants;
 
 public class TelaListarFuncionario extends JFrame {
 
@@ -61,16 +62,6 @@ public class TelaListarFuncionario extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JButton btnAddFunc = new JButton("Adicionar Funcionário");
-		btnAddFunc.setBounds(31, 42, 148, 31);
-		contentPane.add(btnAddFunc);
-		
-        btnAddFunc.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                
-            }
-        });
-		
 		JButton btnVoltar = new JButton("Voltar");
 		btnVoltar.setBounds(284, 327, 114, 23);
 		contentPane.add(btnVoltar);
@@ -106,6 +97,7 @@ public class TelaListarFuncionario extends JFrame {
 		scrollPane.setBounds(31, 88, 632, 230);
 		contentPane.add(scrollPane);
 		
+		//excluir funcionario
 		JButton btnDelFunc = new JButton("Excluir Funcionário");
 		btnDelFunc.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
@@ -120,14 +112,31 @@ public class TelaListarFuncionario extends JFrame {
 		    }
 		});
 
-		btnDelFunc.setBounds(504, 43, 159, 29);
+		btnDelFunc.setBounds(212, 43, 159, 29);
 		contentPane.add(btnDelFunc);
 
+		//inserir funcionario
+		JButton btnAddFunc = new JButton("Adicionar Funcionário");
+		btnAddFunc.addActionListener(e -> {
+		    String nome = JOptionPane.showInputDialog("Digite o nome do funcionário:");
+		    String sobrenome = JOptionPane.showInputDialog("Digite o sobrenome do funcionário:");
+		    String telefone = JOptionPane.showInputDialog("Digite o telefone do funcionário:");
+		    String email = JOptionPane.showInputDialog("Digite o email do funcionário:");
+		    String senha = JOptionPane.showInputDialog("Digite a senha do funcionário:");
+		    boolean adm = JOptionPane.showConfirmDialog(null, "O funcionário é um administrador?", "Confirmação", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION;
+		    Funcionario.inserirFuncionario(model, nome, sobrenome, telefone, email, senha, adm);
+		});
+		btnAddFunc.setBounds(31, 43, 159, 29);
+		contentPane.add(btnAddFunc);
+		
+		JButton btnSalv = new JButton("Salvar");
+		btnSalv.setBounds(504, 43, 159, 29);
+		contentPane.add(btnSalv);
+		
 		ArrayList<String[]> lista = Funcionario.listaFuncionario();
 
 		for (String[] funcionario : lista) {
 		    model.addRow(funcionario);
 		}
-		
 	}
 }

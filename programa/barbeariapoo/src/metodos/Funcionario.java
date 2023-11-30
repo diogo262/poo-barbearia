@@ -58,7 +58,27 @@ public class Funcionario {
 	        }
 	    }
 	}
+	
+	public static void inserirFuncionario(DefaultTableModel model, String nome, String sobrenome, String telefone, String email, String senha, boolean adm) {
+	    try {
+	        Connection con = Conexao.getConnection();
+	        PreparedStatement statement = con.prepareStatement("INSERT INTO tbl_funcionario (nome_funcionario, sobrenome_funcionario, telefone_funcionario, email_funcionario, senha_funcionario, adm_funcionario) VALUES (?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+	        statement.setString(1, nome);
+	        statement.setString(2, sobrenome);
+	        statement.setString(3, telefone);
+	        statement.setString(4, email);
+	        statement.setString(5, senha);
+	        statement.setBoolean(6, adm);
+	        statement.executeUpdate();
 
-
-
+	        ResultSet resultSet = statement.getGeneratedKeys();
+	        if(resultSet.next()) {
+	            int cd_funcionario = resultSet.getInt(1);
+	            
+	            model.addRow(new Object[]{cd_funcionario, nome, sobrenome, telefone, email, senha, adm});
+	        }
+	    } catch (SQLException ex) {
+	        ex.printStackTrace();
+	    }
+	}
 }
