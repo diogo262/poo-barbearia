@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
@@ -26,6 +27,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JTextPane;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
 
 public class TelaListarFila extends JFrame {
 
@@ -63,58 +66,65 @@ public class TelaListarFila extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		String[] statusPedidos = {"Na fila", "Aguardando atendimento", "Em atendimento", "Finalizado", "Cancelado"};
+		
+		JComboBox comboBoxStatusPedido = new JComboBox();
+		comboBoxStatusPedido.setModel(new DefaultComboBoxModel(statusPedidos));
+		comboBoxStatusPedido.setBounds(515, 16, 148, 21);
+		contentPane.add(comboBoxStatusPedido);
+		
 		JButton btnAtendimentoConcluido = new JButton("Atendimento Concluído");
-		btnAtendimentoConcluido.setBounds(31, 42, 148, 31);
+		btnAtendimentoConcluido.setBounds(31, 47, 148, 31);
 		contentPane.add(btnAtendimentoConcluido);
 		
         btnAtendimentoConcluido.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                
+                	
             }
         });
 		
 		JButton btnVoltar = new JButton("Voltar");
-		btnVoltar.setBounds(281, 310, 114, 23);
+		btnVoltar.setBounds(289, 330, 114, 23);
 		contentPane.add(btnVoltar);
 		
 		btnVoltar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
             	TelaFuncionario telaFuncionario = new TelaFuncionario(cdFunc);
 
                 telaFuncionario.setVisible(true);
             	
             	dispose();
-            	
             }
         });
 
 		DefaultTableModel model = new DefaultTableModel();
 
-		// Adiciona colunas ao modelo de tabela
-		model.addColumn("cdPedido");
-		model.addColumn("cdCliente");
-		model.addColumn("cdFuncionario");
-		model.addColumn("cdStatus");
-		model.addColumn("nomeStatus");
-		model.addColumn("horaPedido");
-		model.addColumn("dataPedido");
-		model.addColumn("nomeCliente");
-		model.addColumn("sobrenomeCliente");
-		model.addColumn("telefoneCliente");
-		model.addColumn("emailCliente");
-		model.addColumn("inscricaoNacional");
+		//Adiciona colunas ao modelo de tabela
+		model.addColumn("Pedido");
+		model.addColumn("Cd Cliente");
+		model.addColumn("Cd Status");
+		model.addColumn("Status");
+		model.addColumn("Hora chegada");
+		model.addColumn("Data chegada");
+		model.addColumn("Cliente");
+		model.addColumn("Sobrenome Cliente");
+		model.addColumn("Telefone Cliente");
+		model.addColumn("Email Cliente");
+		model.addColumn("CPF/CNPJ");
 				
 		table = new JTable(model);
 		table.setBorder(new LineBorder(new Color(0, 0, 0)));
 		table.setBounds(31, 88, 632, 230);
-		
-		ArrayList<String[]> lista = FilaM.listarFila();
-		
-		for (String[] fila: lista) {
+		table.setLayout(null);
+				
+		for (String[] fila: FilaM.listarPedidosFila()) {
 			model.addRow(fila);
 		}
+				
+		JScrollPane scrollPane = new JScrollPane(table);
+		scrollPane.setBounds(31, 88, 632, 230);
+		contentPane.add(scrollPane);
 		
 		JTextPane txtpnOQueVoc = new JTextPane();
 		txtpnOQueVoc.setBackground(new Color(255, 253, 233));
@@ -125,7 +135,34 @@ public class TelaListarFila extends JFrame {
 		contentPane.add(txtpnOQueVoc);
 		
 		JButton btnCancelarAtendimento = new JButton("Cancelar Atendimento");
-		btnCancelarAtendimento.setBounds(465, 46, 148, 31);
+		btnCancelarAtendimento.setBounds(515, 47, 148, 31);
 		contentPane.add(btnCancelarAtendimento);
+		
+		comboBoxStatusPedido.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int statusSelecionado = comboBoxStatusPedido.getSelectedIndex();
+				model.setRowCount(0);
+				if (statusSelecionado > 0) {
+					if (statusSelecionado == 1)
+						atualizaTabela(model, FilaM.listarPedidosPorFuncionarioEStatus(cdFunc, 2));
+					else if (statusSelecionado == 2)
+						atualizaTabela(model, FilaM.listarPedidosPorFuncionarioEStatus(cdFunc, 3));
+					else if (statusSelecionado == 3)
+						atualizaTabela(model, FilaM.listarPedidosPorFuncionarioEStatus(cdFunc, 4));
+					else if (statusSelecionado == 4) 
+						atualizaTabela(model, FilaM.listarPedidosPorFuncionarioEStatus(cdFunc, 5));
+					
+				} else 
+					atualizaTabela(model, FilaM.listarPedidosFila());
+			}
+		});
+	}
+	
+	private static void atualizaTabela(DefaultTableModel model, ArrayList<String[]> lista) {
+		for (String[] fila: lista) {
+			model.addRow(fila);
+		}
 	}
 }

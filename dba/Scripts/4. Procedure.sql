@@ -153,7 +153,7 @@ DELIMITER $$
 		)
 	BEGIN
 		INSERT INTO tbl_pedido VALUES
-		(default, vCdCliente, null, 1, NOW(), NOW());
+		(default, vCdCliente, null, 1, TIME(NOW()), DATE(NOW()));
 	END $$
 DELIMITER ;;
 
@@ -180,3 +180,48 @@ DELIMITER $$
 DELIMITER ;;
 
 call sp_clientesNaFila
+
+/* Consultando pedidos na fila hoje, sem funcionarios atribuidos */
+
+DELIMITER $$
+	CREATE PROCEDURE 
+		sp_consultaPedidosNaFila()
+	BEGIN
+		SELECT 
+			* 
+		FROM 
+			vw_consultaPedidosNaFila
+		WHERE 
+			cd_funcionario is null
+			AND 
+			cd_status = 1
+			AND 
+			data_pedido = DATE(NOW());
+	END $$
+DELIMITER ;;
+
+call sp_consultaPedidosNaFila;
+
+/* Consulta pedidos que funcionario X esta responsavel */
+
+DELIMITER $$
+	CREATE PROCEDURE sp_consultaPedidosPorStatusEFuncionario
+		(
+			vCdFuncionario int,
+            vCdStatus int
+        )
+	BEGIN
+		SELECT 
+			* 
+		FROM 
+			vw_consultaPedidosNaFila
+		WHERE 
+			cd_funcionario = vCdFuncionario
+			AND 
+			cd_status = vCdStatus
+			AND 
+			data_pedido = DATE(NOW());
+	END $$
+DELIMITER ;;
+
+call sp_consultaPedidosPorStatusEFuncionario(1, 1);

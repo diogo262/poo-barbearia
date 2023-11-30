@@ -22,4 +22,4 @@ INSERT INTO tbl_status VALUES
 (5, 'Cancelado');
 
 INSERT INTO tbl_pedido VALUES
-(3, 2, 1, 1, NOW(), NOW()), (default, 1, null, 1, NOW(), NOW());
+(default, 1, 2, 2, TIME(NOW()), DATE(NOW())), (default, 1, null, 1, TIME(NOW()), DATE(NOW()));
