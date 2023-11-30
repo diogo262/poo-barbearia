@@ -20,6 +20,8 @@ import metodos.Conexao;
 import metodos.Funcionario;
 
 import javax.swing.border.LineBorder;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.SwingConstants;
 
@@ -129,14 +131,25 @@ public class TelaListarFuncionario extends JFrame {
 		btnAddFunc.setBounds(31, 43, 159, 29);
 		contentPane.add(btnAddFunc);
 		
-		JButton btnSalv = new JButton("Salvar");
-		btnSalv.setBounds(504, 43, 159, 29);
-		contentPane.add(btnSalv);
-		
+		//atualizar funcionario
+				model.addTableModelListener(new TableModelListener() {
+					public void tableChanged(TableModelEvent e) {
+						if(e.getType() == TableModelEvent.UPDATE) {
+							int linha = e.getFirstRow();
+						    int coluna = e.getColumn();
+						    Object newValue = model.getValueAt(linha, coluna); // Recupera a linha e coluna
+						    int cd_funcionario = Integer.parseInt((String) model.getValueAt(linha, 0)); // Pega o cd_funcionario da linha editada
+						    Funcionario.atualizarFuncionario(cd_funcionario, coluna, newValue);
+						 }
+					}
+				});
+				
 		ArrayList<String[]> lista = Funcionario.listaFuncionario();
 
 		for (String[] funcionario : lista) {
 		    model.addRow(funcionario);
 		}
+		
+		
 	}
 }

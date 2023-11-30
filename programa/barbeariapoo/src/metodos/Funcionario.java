@@ -81,4 +81,43 @@ public class Funcionario {
 	        ex.printStackTrace();
 	    }
 	}
+	
+	public static void atualizarFuncionario(int cd_funcionario, int coluna, Object newValue) {
+        try {
+            Connection con = Conexao.getConnection();
+            PreparedStatement statement = null;
+
+            if(coluna == 1) {
+                statement = con.prepareStatement("UPDATE tbl_funcionario SET nome_funcionario = ? WHERE cd_funcionario = ?");
+                statement.setString(1, (String) newValue);
+                statement.setInt(2, cd_funcionario);
+            } else if(coluna == 2) {
+                statement = con.prepareStatement("UPDATE tbl_funcionario SET sobrenome_funcionario = ? WHERE cd_funcionario = ?");
+                statement.setString(1, (String) newValue);
+                statement.setInt(2, cd_funcionario);
+            } else if(coluna == 3) { 
+                statement = con.prepareStatement("UPDATE tbl_funcionario SET telefone_funcionario = ? WHERE cd_funcionario = ?");
+                statement.setString(1, (String) newValue);
+                statement.setInt(2, cd_funcionario);
+            } else if(coluna == 4) {
+                statement = con.prepareStatement("UPDATE tbl_funcionario SET email_funcionario = ? WHERE cd_funcionario = ?");
+                statement.setString(1, (String) newValue);
+                statement.setInt(2, cd_funcionario);
+            } else if(coluna == 5) {
+                statement = con.prepareStatement("UPDATE tbl_funcionario SET senha_funcionario = ? WHERE cd_funcionario = ?");
+                statement.setString(1, (String) newValue);
+                statement.setInt(2, cd_funcionario);
+            } else if(coluna == 6) {
+                statement = con.prepareStatement("UPDATE tbl_funcionario SET adm_funcionario = ? WHERE cd_funcionario = ?");
+                statement.setBoolean(1, (Boolean) newValue);
+                statement.setInt(2, cd_funcionario);
+            }
+
+            if(statement != null) {
+                statement.executeUpdate();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
