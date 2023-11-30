@@ -34,3 +34,27 @@ SELECT
 	*
 FROM
 	tbl_cliente_juridico;
+    
+/* Consultando para ver se um usuario X esta na fila HOJE */
+
+SELECT 
+	*
+FROM	
+	tbl_pedido
+WHERE
+	data_pedido = DATE(NOW())
+    AND 
+    cd_status = 1
+    AND 
+    cd_cliente = 1;
+    
+/* Consultando para ver a quantidade de usuarios na fila hoje */
+
+SELECT 
+	*
+FROM	
+	tbl_pedido
+WHERE
+	data_pedido = DATE(NOW())
+    AND 
+    cd_status = 1

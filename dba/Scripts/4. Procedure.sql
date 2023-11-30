@@ -100,3 +100,83 @@ DELIMITER $$
 DELIMITER ;;
 
 call sp_consultaClientePorCdCliente(1);
+
+/* Procedure para ver se cliente esta X esta na fila hoje */
+
+DELIMITER $$
+	CREATE PROCEDURE sp_consultaClienteNaFilaHojePorCdCliente
+		(
+            vCdCliente int
+		)
+	BEGIN
+		SELECT 
+			*
+		FROM	
+			tbl_pedido
+		WHERE
+			data_pedido = DATE(NOW())
+			AND 
+			cd_status = 1
+            AND 
+            cd_cliente = vCdCliente;
+	END $$
+DELIMITER ;;
+
+call sp_consultaClienteNaFilaHojePorCdCliente(2);
+
+/* Procedure para sair da fila */
+
+DELIMITER $$
+	CREATE PROCEDURE sp_saiDaFila
+		(
+            vCdPedido int
+		)
+	BEGIN
+		UPDATE 
+			tbl_pedido
+		SET
+			cd_status = 5
+		WHERE 
+			cd_pedido = vCdPedido;
+	END $$
+DELIMITER ;;
+
+call sp_saiDaFila(6);
+
+
+/* Procedure para entrar na fila */
+
+DELIMITER $$
+	CREATE PROCEDURE sp_entrarNaFila
+		(
+            vCdCliente int
+		)
+	BEGIN
+		INSERT INTO tbl_pedido VALUES
+		(default, vCdCliente, null, 1, NOW(), NOW());
+	END $$
+DELIMITER ;;
+
+call sp_entrarNaFila(1);
+
+/* Procedure para consultar a quantidade de clientes na fila */
+
+DELIMITER $$
+	CREATE PROCEDURE 
+		sp_clientesNaFila()
+	BEGIN
+		SELECT 
+			*
+		FROM	
+			tbl_pedido
+		WHERE
+			data_pedido = DATE(NOW())
+			AND 
+			cd_status = 1
+		GROUP BY 
+			data_pedido,
+            hora_pedido;
+	END $$
+DELIMITER ;;
+
+call sp_clientesNaFila

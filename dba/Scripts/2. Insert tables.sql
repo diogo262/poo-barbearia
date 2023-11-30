@@ -7,3 +7,13 @@ INSERT INTO tbl_funcionario VALUES
 INSERT INTO tbl_cliente VALUES 
 (DEFAULT, 'Eriku', 'Sakai', '1140028685', 'erikito@gmail.com.br', '12345'),
 (DEFAULT, 'Eriku', 'Takahashi', '1140028989', 'erikito.takahashi@gmail.com.br', '12345');
+
+INSERT INTO tbl_status VALUES
+(1, 'Na fila'), # somente marcou chegada
+(2, 'Aguardando atendimento'), # um funcionario ja marcou q ira atende-lo
+(3, 'Em atendimento'), # um funcionario esta cortando o cabelo dele
+(4, 'Finalizado'),
+(5, 'Cancelado');
+
+INSERT INTO tbl_pedido VALUES
+(3, 2, null, 1, NOW(), NOW()), (default, 1, null, 1, NOW(), NOW());

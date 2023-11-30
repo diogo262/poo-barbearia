@@ -49,7 +49,6 @@ public class Funcionario {
 	            PreparedStatement statement = connection.prepareStatement(sql);
 	            statement.setString(1, cdFuncionario);
 	            int rowsAffected = statement.executeUpdate();
-	            System.out.println("Rows affected: " + rowsAffected); 
 
 	            // aqui remove
 	            model.removeRow(selectedRow);

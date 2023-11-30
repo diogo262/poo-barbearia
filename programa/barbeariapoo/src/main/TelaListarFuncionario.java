@@ -123,12 +123,6 @@ public class TelaListarFuncionario extends JFrame {
 		btnDelFunc.setBounds(504, 43, 159, 29);
 		contentPane.add(btnDelFunc);
 
-
-
-
-		
-		
-
 		ArrayList<String[]> lista = Funcionario.listaFuncionario();
 
 		for (String[] funcionario : lista) {

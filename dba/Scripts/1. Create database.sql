@@ -60,6 +60,7 @@ create table tbl_status (
 );
 
 create table tbl_pedido (
+	cd_pedido int primary key auto_increment,
     cd_cliente int null,
     cd_funcionario int null, 
     cd_status int null, 
