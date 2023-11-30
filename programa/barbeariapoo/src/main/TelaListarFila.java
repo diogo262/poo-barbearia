@@ -11,8 +11,8 @@ import javax.swing.table.DefaultTableModel;
 
 import domain.FuncionarioFisico;
 import domain.FuncionarioJuridico;
-import domain.Pedido;
-import metodos.Fila;
+import domain.FilaD;
+import metodos.FilaM;
 import metodos.Funcionario;
 
 import javax.swing.JTextField;
@@ -94,8 +94,10 @@ public class TelaListarFila extends JFrame {
 
 		// Adiciona colunas ao modelo de tabela
 		model.addColumn("cdPedido");
+		model.addColumn("cdCliente");
 		model.addColumn("cdFuncionario");
 		model.addColumn("cdStatus");
+		model.addColumn("nomeStatus");
 		model.addColumn("horaPedido");
 		model.addColumn("dataPedido");
 		model.addColumn("nomeCliente");
@@ -103,19 +105,15 @@ public class TelaListarFila extends JFrame {
 		model.addColumn("telefoneCliente");
 		model.addColumn("emailCliente");
 		model.addColumn("inscricaoNacional");
-		
+				
 		table = new JTable(model);
 		table.setBorder(new LineBorder(new Color(0, 0, 0)));
 		table.setBounds(31, 88, 632, 230);
 		
-		List<Pedido<?, ?>> lista = Fila.listarFila();
+		ArrayList<String[]> lista = FilaM.listarFila();
 		
-		for (Pedido<?, ?> ped: lista) {
-			if (ped.getFuncionario().getClass() == FuncionarioFisico.class) {
-				
-			} else if (ped.getFuncionario().getClass() == FuncionarioJuridico.class) {
-				
-			}
+		for (String[] fila: lista) {
+			model.addRow(fila);
 		}
 		
 		JTextPane txtpnOQueVoc = new JTextPane();
