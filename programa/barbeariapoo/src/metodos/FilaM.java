@@ -1,15 +1,23 @@
 package metodos;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
 
-import domain.FilaD;
+import javax.swing.JOptionPane;
 
 public class FilaM {
+	public static void chamaDialogAviso(String mensagemErro, String tituloErro) {
+		JOptionPane.showMessageDialog(null, mensagemErro, tituloErro, JOptionPane.INFORMATION_MESSAGE);	
+	}
+	
+	public static void chamaDialogErro(String mensagemErro, String tituloErro) {
+		JOptionPane.showMessageDialog(null, mensagemErro, tituloErro, JOptionPane.ERROR_MESSAGE);	
+	}
+	
 	public static ArrayList<String[]> listarPedidosFila() {
 		Connection connection = Conexao.getConnection();
 		try {
@@ -73,4 +81,56 @@ public class FilaM {
 			throw new RuntimeException("Erro ao realizar consulta.", e);
 		}
     }
+	
+	public static boolean atendimentoConcluido(int cdPedido) {
+		Connection connection = Conexao.getConnection();
+		
+		try {
+            String query = String.format("call sp_finalizarAtendimento(%d)", cdPedido);
+            PreparedStatement statement = connection.prepareStatement(query);
+            
+            return statement.executeUpdate() > 0 ? true : false;
+		} catch (SQLException e) {
+			throw new RuntimeException("Erro ao realizar consulta.", e);
+		}
+	}
+	
+	public static boolean pedidoAguardandoAtendimento(int cdPedido) {
+		Connection connection = Conexao.getConnection();
+		
+		try {
+            String query = String.format("call sp_pedidoAguardandoAtendimento(%d)", cdPedido);
+            PreparedStatement statement = connection.prepareStatement(query);
+            
+            return statement.executeUpdate() > 0 ? true : false;
+		} catch (SQLException e) {
+			throw new RuntimeException("Erro ao realizar consulta.", e);
+		}
+	}
+	
+	public static boolean atenderPedido(int cdPedido) {
+		Connection connection = Conexao.getConnection();
+		
+		try {
+            String query = String.format("call sp_atenderPedido(%d)", cdPedido);
+            PreparedStatement statement = connection.prepareStatement(query);
+            
+            return statement.executeUpdate() > 0 ? true : false;
+		} catch (SQLException e) {
+			throw new RuntimeException("Erro ao realizar consulta.", e);
+		}
+	}
+	
+	public static boolean cancelarPedido(int cdPedido) {
+		Connection connection = Conexao.getConnection();
+		
+		try {
+            String query = String.format("call sp_cancelarPedido(%d)", cdPedido);
+            PreparedStatement statement = connection.prepareStatement(query);
+            
+            return statement.executeUpdate() > 0 ? true : false;
+		} catch (SQLException e) {
+			throw new RuntimeException("Erro ao realizar consulta.", e);
+		}
+	}
 }

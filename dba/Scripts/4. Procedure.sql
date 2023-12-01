@@ -225,3 +225,79 @@ DELIMITER $$
 DELIMITER ;;
 
 call sp_consultaPedidosPorStatusEFuncionario(1, 1);
+
+/* Pedido concluido finalizado */
+
+DELIMITER $$
+	CREATE PROCEDURE sp_finalizarAtendimento
+		(
+            vCdPedido int
+		)
+	BEGIN
+		UPDATE 
+			tbl_pedido
+		SET
+			cd_status = 4
+		WHERE 
+			cd_pedido = vCdPedido;
+	END $$
+DELIMITER ;;
+
+call sp_finalizarAtendimento(6);
+
+/* Pedido concluido finalizado */
+
+DELIMITER $$
+	CREATE PROCEDURE sp_pedidoAguardandoAtendimento
+		(
+            vCdPedido int
+		)
+	BEGIN
+		UPDATE 
+			tbl_pedido
+		SET
+			cd_status = 2
+		WHERE 
+			cd_pedido = vCdPedido;
+	END $$
+DELIMITER ;;
+
+call sp_pedidoAguardandoAtendimento(6);
+
+/* Atender pedido */
+
+DELIMITER $$
+	CREATE PROCEDURE sp_atenderPedido
+		(
+            vCdPedido int
+		)
+	BEGIN
+		UPDATE 
+			tbl_pedido
+		SET
+			cd_status = 3
+		WHERE 
+			cd_pedido = vCdPedido;
+	END $$
+DELIMITER ;;
+
+call sp_atenderPedido(6);
+
+/* Cancelar pedido */
+
+DELIMITER $$
+	CREATE PROCEDURE sp_CancelarPedido
+		(
+            vCdPedido int
+		)
+	BEGIN
+		UPDATE 
+			tbl_pedido
+		SET
+			cd_status = 5
+		WHERE 
+			cd_pedido = vCdPedido;
+	END $$
+DELIMITER ;;
+
+call sp_CancelarPedido(6);

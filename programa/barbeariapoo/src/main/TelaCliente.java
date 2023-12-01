@@ -21,7 +21,6 @@ public class TelaCliente extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private int cdCliente;
 
 	/**
 	 * Launch the application.
@@ -43,7 +42,6 @@ public class TelaCliente extends JFrame {
 	 * Create the frame.
 	 */
 	public TelaCliente(int cdCli) {
-		this.cdCliente = cdCli;
 						
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -61,7 +59,7 @@ public class TelaCliente extends JFrame {
 		
         btnMarcarChegada.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                TelaMarcarChegada telaMarcarChegada = new TelaMarcarChegada(cdCliente);
+                TelaMarcarChegada telaMarcarChegada = new TelaMarcarChegada(cdCli);
 
                 telaMarcarChegada.setVisible(true);
 
@@ -83,7 +81,7 @@ public class TelaCliente extends JFrame {
 		JTextPane txtpnOQueVoc = new JTextPane();
 		txtpnOQueVoc.setBackground(new Color(255, 253, 233));
 		txtpnOQueVoc.setEditable(false);
-		txtpnOQueVoc.setText(String.format("Bem-vindo(a), %s!", Cliente.pegaNomeCliente(cdCliente)));
+		txtpnOQueVoc.setText(String.format("Bem-vindo(a), %s!", Cliente.pegaNomeCliente(cdCli)));
 		txtpnOQueVoc.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txtpnOQueVoc.setBounds(10, 11, 229, 20);
 		contentPane.add(txtpnOQueVoc);

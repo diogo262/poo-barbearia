@@ -13,6 +13,7 @@ import javax.swing.table.DefaultTableModel;
 import domain.FuncionarioFisico;
 import domain.FuncionarioJuridico;
 import domain.FilaD;
+import metodos.Cliente;
 import metodos.FilaM;
 import metodos.Funcionario;
 
@@ -76,12 +77,98 @@ public class TelaListarFila extends JFrame {
 		JButton btnAtendimentoConcluido = new JButton("Atendimento Concluído");
 		btnAtendimentoConcluido.setBounds(31, 47, 148, 31);
 		contentPane.add(btnAtendimentoConcluido);
+
+		ocultaBotao(btnAtendimentoConcluido);
 		
-        btnAtendimentoConcluido.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                	
-            }
-        });
+		JButton btnAtender = new JButton("Atender");
+		btnAtender.setBounds(31, 47, 148, 31);
+		contentPane.add(btnAtender);
+		
+		ocultaBotao(btnAtender);
+		
+		DefaultTableModel model = new DefaultTableModel();
+
+		//Adiciona colunas ao modelo de tabela
+		model.addColumn("Pedido");
+		model.addColumn("Cd Cliente");
+		model.addColumn("Cd Status");
+		model.addColumn("Status");
+		model.addColumn("Hora chegada");
+		model.addColumn("Data chegada");
+		model.addColumn("Cliente");
+		model.addColumn("Sobrenome Cliente");
+		model.addColumn("Telefone Cliente");
+		model.addColumn("Email Cliente");
+		model.addColumn("CPF/CNPJ");
+		
+		table = new JTable(model);
+		table.setBorder(new LineBorder(new Color(0, 0, 0)));
+		table.setBounds(31, 88, 632, 230);
+		table.setLayout(null);
+		
+		JScrollPane scrollPane = new JScrollPane(table);
+		scrollPane.setBounds(31, 88, 632, 230);
+		contentPane.add(scrollPane);
+		
+		atualizaTabela(model, FilaM.listarPedidosFila());
+		
+		JTextPane txtpnOQueVoc = new JTextPane();
+		txtpnOQueVoc.setBackground(new Color(255, 253, 233));
+		txtpnOQueVoc.setEditable(false);
+		txtpnOQueVoc.setText("Clientes aguardando atendimento");
+		txtpnOQueVoc.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtpnOQueVoc.setBounds(10, 11, 229, 20);
+		contentPane.add(txtpnOQueVoc);
+		
+		JButton btnCancelarAtendimento = new JButton("Cancelar Atendimento");
+		btnCancelarAtendimento.setBounds(515, 47, 148, 31);
+		contentPane.add(btnCancelarAtendimento);
+		
+		JButton btnSelecionarCliente = new JButton("Selecionar cliente");
+		btnSelecionarCliente.setBounds(31, 47, 148, 31);
+		contentPane.add(btnSelecionarCliente);
+		
+		btnSelecionarCliente.setEnabled(true);
+		btnSelecionarCliente.setVisible(true);
+		
+		comboBoxStatusPedido.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int statusSelecionado = comboBoxStatusPedido.getSelectedIndex();
+				model.setRowCount(0);
+				if (statusSelecionado > 0) {
+					if (statusSelecionado == 1) { // aguardando atendimento
+						ocultaBotao(btnAtendimentoConcluido);
+						ocultaBotao(btnSelecionarCliente);
+						atualizaTabela(model, FilaM.listarPedidosPorFuncionarioEStatus(cdFunc, 2));
+						btnCancelarAtendimento.setEnabled(true);
+						expoeBotao(btnAtender);
+					} else if (statusSelecionado == 2) { // em atendimento
+						ocultaBotao(btnAtender);
+						ocultaBotao(btnSelecionarCliente);
+						atualizaTabela(model, FilaM.listarPedidosPorFuncionarioEStatus(cdFunc, 3));
+						expoeBotao(btnAtendimentoConcluido);
+						btnCancelarAtendimento.setEnabled(true);
+					} else if (statusSelecionado == 3) { // finalizado
+						ocultaBotao(btnAtender);
+						ocultaBotao(btnSelecionarCliente);
+						ocultaBotao(btnAtendimentoConcluido);
+						atualizaTabela(model, FilaM.listarPedidosPorFuncionarioEStatus(cdFunc, 4));
+					} else if (statusSelecionado == 4) { // cancelado
+						ocultaBotao(btnAtender);
+						ocultaBotao(btnSelecionarCliente);
+						ocultaBotao(btnAtendimentoConcluido);
+						btnCancelarAtendimento.setEnabled(false);
+						atualizaTabela(model, FilaM.listarPedidosPorFuncionarioEStatus(cdFunc, 5));
+					}
+				} else { // na fila
+					ocultaBotao(btnAtendimentoConcluido);
+					btnCancelarAtendimento.setEnabled(true);
+					atualizaTabela(model, FilaM.listarPedidosFila());
+					expoeBotao(btnSelecionarCliente);
+				}
+			}
+		});
 		
 		JButton btnVoltar = new JButton("Voltar");
 		btnVoltar.setBounds(289, 330, 114, 23);
@@ -97,65 +184,83 @@ public class TelaListarFila extends JFrame {
             	dispose();
             }
         });
+		
+        btnAtendimentoConcluido.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	int linhaSelecionada = table.getSelectedRow();
+            	if (linhaSelecionada != -1) {
+                	int cdPedido = Integer.parseInt(table.getValueAt(linhaSelecionada, 0).toString());
+                	
+                	boolean atendimentoFinalizado = FilaM.atendimentoConcluido(cdPedido);
+                	
+                	if (atendimentoFinalizado) {
+        				model.setRowCount(0);
+    					atualizaTabela(model, FilaM.listarPedidosPorFuncionarioEStatus(cdFunc, 3));
 
-		DefaultTableModel model = new DefaultTableModel();
-
-		//Adiciona colunas ao modelo de tabela
-		model.addColumn("Pedido");
-		model.addColumn("Cd Cliente");
-		model.addColumn("Cd Status");
-		model.addColumn("Status");
-		model.addColumn("Hora chegada");
-		model.addColumn("Data chegada");
-		model.addColumn("Cliente");
-		model.addColumn("Sobrenome Cliente");
-		model.addColumn("Telefone Cliente");
-		model.addColumn("Email Cliente");
-		model.addColumn("CPF/CNPJ");
-				
-		table = new JTable(model);
-		table.setBorder(new LineBorder(new Color(0, 0, 0)));
-		table.setBounds(31, 88, 632, 230);
-		table.setLayout(null);
-				
-		for (String[] fila: FilaM.listarPedidosFila()) {
-			model.addRow(fila);
-		}
-				
-		JScrollPane scrollPane = new JScrollPane(table);
-		scrollPane.setBounds(31, 88, 632, 230);
-		contentPane.add(scrollPane);
+                		FilaM.chamaDialogAviso("Atendimento finalizado!", "Mandou bem!");
+                	} else 
+                		FilaM.chamaDialogErro("Ops, ocorreu algum erro interno...", "Erro inesperado!");	
+            	}
+            }
+        });
 		
-		JTextPane txtpnOQueVoc = new JTextPane();
-		txtpnOQueVoc.setBackground(new Color(255, 253, 233));
-		txtpnOQueVoc.setEditable(false);
-		txtpnOQueVoc.setText("Clientes aguardando atendimento");
-		txtpnOQueVoc.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		txtpnOQueVoc.setBounds(10, 11, 229, 20);
-		contentPane.add(txtpnOQueVoc);
-		
-		JButton btnCancelarAtendimento = new JButton("Cancelar Atendimento");
-		btnCancelarAtendimento.setBounds(515, 47, 148, 31);
-		contentPane.add(btnCancelarAtendimento);
-		
-		comboBoxStatusPedido.addActionListener(new ActionListener() {
-			
+		btnAtender.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				int statusSelecionado = comboBoxStatusPedido.getSelectedIndex();
-				model.setRowCount(0);
-				if (statusSelecionado > 0) {
-					if (statusSelecionado == 1)
-						atualizaTabela(model, FilaM.listarPedidosPorFuncionarioEStatus(cdFunc, 2));
-					else if (statusSelecionado == 2)
-						atualizaTabela(model, FilaM.listarPedidosPorFuncionarioEStatus(cdFunc, 3));
-					else if (statusSelecionado == 3)
-						atualizaTabela(model, FilaM.listarPedidosPorFuncionarioEStatus(cdFunc, 4));
-					else if (statusSelecionado == 4) 
-						atualizaTabela(model, FilaM.listarPedidosPorFuncionarioEStatus(cdFunc, 5));
-					
-				} else 
-					atualizaTabela(model, FilaM.listarPedidosFila());
+				int linhaSelecionada = table.getSelectedRow();
+            	if (linhaSelecionada != -1) {
+                	int cdPedido = Integer.parseInt(table.getValueAt(linhaSelecionada, 0).toString());
+                	
+                	boolean atender = FilaM.atenderPedido(cdPedido);
+                	
+                	if (atender) {
+        				model.setRowCount(0);
+    					atualizaTabela(model, FilaM.listarPedidosPorFuncionarioEStatus(cdFunc, 2));
+
+                		FilaM.chamaDialogAviso("Mais um para a conta!", "Boa! Bora pra cima!");
+                	} else 
+                		FilaM.chamaDialogErro("Ops, ocorreu algum erro interno...", "Erro inesperado!");	
+            	}
+			}
+		});
+		
+		btnSelecionarCliente.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int linhaSelecionada = table.getSelectedRow();
+            	if (linhaSelecionada != -1) {
+                	int cdPedido = Integer.parseInt(table.getValueAt(linhaSelecionada, 0).toString());
+                	
+                	boolean aguardandoAtendimento = FilaM.pedidoAguardandoAtendimento(cdPedido);
+                	
+                	if (aguardandoAtendimento) {
+        				model.setRowCount(0);
+    					atualizaTabela(model, FilaM.listarPedidosFila());
+
+                		FilaM.chamaDialogAviso("Agora você será responsável por esse atendimento.", "Boa! Bora pra cima!");
+                	} else 
+                		FilaM.chamaDialogErro("Ops, ocorreu algum erro interno...", "Erro inesperado!");
+            	}
+			}
+		});
+		
+		btnCancelarAtendimento.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int linhaSelecionada = table.getSelectedRow();
+            	if (linhaSelecionada != -1) {
+                	int cdPedido = Integer.parseInt(table.getValueAt(linhaSelecionada, 0).toString());
+                	
+                	boolean aguardandoAtendimento = FilaM.cancelarPedido(cdPedido);
+                	
+                	if (aguardandoAtendimento) {
+        				model.setRowCount(0);
+    					atualizaTabela(model, FilaM.listarPedidosFila());
+
+                		FilaM.chamaDialogAviso("Agora você será responsável por esse atendimento.", "Boa! Bora pra cima!");
+                	} else 
+                		FilaM.chamaDialogErro("Ops, ocorreu algum erro interno...", "Erro inesperado!");
+            	}
 			}
 		});
 	}
@@ -164,5 +269,17 @@ public class TelaListarFila extends JFrame {
 		for (String[] fila: lista) {
 			model.addRow(fila);
 		}
+	}
+	
+	private static void ocultaBotao(JButton button) 
+	{
+		button.setVisible(false);
+		button.setEnabled(false);
+	}
+	
+	private static void expoeBotao(JButton button) 
+	{
+		button.setEnabled(true);
+		button.setVisible(true);
 	}
 }
