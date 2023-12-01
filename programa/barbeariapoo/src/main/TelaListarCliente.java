@@ -67,7 +67,7 @@ public class TelaListarCliente extends JFrame {
 		contentPane.setLayout(null);
 		
 		JButton btnVoltar = new JButton("Voltar");
-		btnVoltar.setBounds(281, 310, 114, 23);
+		btnVoltar.setBounds(281, 327, 114, 23);
 		contentPane.add(btnVoltar);
 		
 		btnVoltar.addActionListener(new ActionListener() {
