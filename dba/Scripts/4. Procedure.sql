@@ -21,8 +21,6 @@ DELIMITER $$
 	END $$
 DELIMITER ;;
 
-call sp_consultaLoginFuncionario ('dioguito@berserk.com.br', '12345');
-
 /* Procedure para consultar o código do funcionário que irá se logar */
 
 DELIMITER $$
@@ -44,8 +42,6 @@ DELIMITER $$
 	END $$
 DELIMITER ;;
 
-call sp_consultaLoginCliente ('erikito@gmail.com.br', '12345');
-
 /* Procedure para inserir um cliente físico */
 
 DELIMITER $$
@@ -61,8 +57,6 @@ DELIMITER $$
 			(vCdCliente, vCPFCliente);
 	END $$
 DELIMITER ;;
-
-call sp_insereClienteFisico (1, '12345678901');
 
 /* Procedure para inserir um cliente juridico */
 
@@ -80,8 +74,6 @@ DELIMITER $$
 	END $$
 DELIMITER ;;
 
-call sp_insereClienteJuridico (2, '12345678901234');
-
 /* Procedure para consultar o nome do usuario por chave primaria */
 
 DELIMITER $$
@@ -98,8 +90,6 @@ DELIMITER $$
 			cd_cliente = vCdCliente;
 	END $$
 DELIMITER ;;
-
-call sp_consultaClientePorCdCliente(1);
 
 /* Procedure para ver se cliente esta X esta na fila hoje */
 
@@ -122,28 +112,6 @@ DELIMITER $$
 	END $$
 DELIMITER ;;
 
-call sp_consultaClienteNaFilaHojePorCdCliente(2);
-
-/* Procedure para sair da fila */
-
-DELIMITER $$
-	CREATE PROCEDURE sp_saiDaFila
-		(
-            vCdPedido int
-		)
-	BEGIN
-		UPDATE 
-			tbl_pedido
-		SET
-			cd_status = 5
-		WHERE 
-			cd_pedido = vCdPedido;
-	END $$
-DELIMITER ;;
-
-call sp_saiDaFila(6);
-
-
 /* Procedure para entrar na fila */
 
 DELIMITER $$
@@ -156,8 +124,6 @@ DELIMITER $$
 		(default, vCdCliente, null, 1, TIME(NOW()), DATE(NOW()));
 	END $$
 DELIMITER ;;
-
-call sp_entrarNaFila(1);
 
 /* Procedure para consultar a quantidade de clientes na fila */
 
@@ -179,8 +145,6 @@ DELIMITER $$
 	END $$
 DELIMITER ;;
 
-call sp_clientesNaFila
-
 /* Consultando pedidos na fila hoje, sem funcionarios atribuidos */
 
 DELIMITER $$
@@ -199,8 +163,6 @@ DELIMITER $$
 			data_pedido = DATE(NOW());
 	END $$
 DELIMITER ;;
-
-call sp_consultaPedidosNaFila;
 
 /* Consulta pedidos que funcionario X esta responsavel */
 
@@ -224,9 +186,24 @@ DELIMITER $$
 	END $$
 DELIMITER ;;
 
-call sp_consultaPedidosPorStatusEFuncionario(1, 1);
+/* Procedure para sair da fila */
 
-/* Pedido concluido finalizado */
+DELIMITER $$
+	CREATE PROCEDURE sp_saiDaFila
+		(
+            vCdPedido int
+		)
+	BEGIN
+		UPDATE 
+			tbl_pedido
+		SET
+			cd_status = 5
+		WHERE 
+			cd_pedido = vCdPedido;
+	END $$
+DELIMITER ;;
+
+/* Pedido finalizado */
 
 DELIMITER $$
 	CREATE PROCEDURE sp_finalizarAtendimento
@@ -243,28 +220,26 @@ DELIMITER $$
 	END $$
 DELIMITER ;;
 
-call sp_finalizarAtendimento(6);
-
-/* Pedido concluido finalizado */
+/* Pedido aguardando atendimento */
 
 DELIMITER $$
 	CREATE PROCEDURE sp_pedidoAguardandoAtendimento
 		(
-            vCdPedido int
+            vCdPedido int,
+            vCdFuncionario int
 		)
 	BEGIN
 		UPDATE 
 			tbl_pedido
 		SET
-			cd_status = 2
+			cd_status = 2,
+			cd_funcionario = vCdFuncionario
 		WHERE 
 			cd_pedido = vCdPedido;
 	END $$
 DELIMITER ;;
 
-call sp_pedidoAguardandoAtendimento(6);
-
-/* Atender pedido */
+/* Pedido em atendimento */
 
 DELIMITER $$
 	CREATE PROCEDURE sp_atenderPedido
@@ -281,7 +256,6 @@ DELIMITER $$
 	END $$
 DELIMITER ;;
 
-call sp_atenderPedido(6);
 
 /* Cancelar pedido */
 
@@ -299,5 +273,3 @@ DELIMITER $$
 			cd_pedido = vCdPedido;
 	END $$
 DELIMITER ;;
-
-call sp_CancelarPedido(6);

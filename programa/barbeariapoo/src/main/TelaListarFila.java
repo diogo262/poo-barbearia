@@ -232,7 +232,7 @@ public class TelaListarFila extends JFrame {
             	if (linhaSelecionada != -1) {
                 	int cdPedido = Integer.parseInt(table.getValueAt(linhaSelecionada, 0).toString());
                 	
-                	boolean aguardandoAtendimento = FilaM.pedidoAguardandoAtendimento(cdPedido);
+                	boolean aguardandoAtendimento = FilaM.pedidoAguardandoAtendimento(cdPedido, cdFunc);
                 	
                 	if (aguardandoAtendimento) {
         				model.setRowCount(0);

@@ -95,11 +95,11 @@ public class FilaM {
 		}
 	}
 	
-	public static boolean pedidoAguardandoAtendimento(int cdPedido) {
+	public static boolean pedidoAguardandoAtendimento(int cdPedido, int cdFuncionario) {
 		Connection connection = Conexao.getConnection();
 		
 		try {
-            String query = String.format("call sp_pedidoAguardandoAtendimento(%d)", cdPedido);
+            String query = String.format("call sp_pedidoAguardandoAtendimento(%d, %d)", cdPedido, cdFuncionario);
             PreparedStatement statement = connection.prepareStatement(query);
             
             return statement.executeUpdate() > 0 ? true : false;
