@@ -12,7 +12,7 @@ import javax.swing.table.DefaultTableModel;
 
 import domain.FuncionarioFisico;
 import domain.FuncionarioJuridico;
-import domain.FilaD;
+import domain.Pedido;
 import metodos.Cliente;
 import metodos.FilaM;
 import metodos.Funcionario;

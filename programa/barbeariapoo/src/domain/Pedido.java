@@ -1,9 +1,9 @@
 package domain;
 
-public class FilaD {
+public class Pedido<F extends Funcionario, C extends Cliente> {
 	private int cdPedido;
-	private int cdCliente;
-	private int cdFuncionario;
+	private C cliente;
+	private F funcionario;
 	private int cdStatus;
 	private String nomeStatus;
 	private String horaPedido;
@@ -14,23 +14,23 @@ public class FilaD {
 	private String emailCliente;
 	private String inscricaoNacionalCliente;
 	
+	public C getCliente() {
+		return cliente;
+	}
+	public void setCliente(C cliente) {
+		this.cliente = cliente;
+	}
+	public F getFuncionario() {
+		return funcionario;
+	}
+	public void setFuncionario(F funcionario) {
+		this.funcionario = funcionario;
+	}
 	public int getCdPedido() {
 		return cdPedido;
 	}
 	public void setCdPedido(int cdPedido) {
 		this.cdPedido = cdPedido;
-	}
-	public int getCdCliente() {
-		return cdCliente;
-	}
-	public void setCdCliente(int cdCliente) {
-		this.cdCliente = cdCliente;
-	}
-	public int getCdFuncionario() {
-		return cdFuncionario;
-	}
-	public void setCdFuncionario(int cdFuncionario) {
-		this.cdFuncionario = cdFuncionario;
 	}
 	public int getCdStatus() {
 		return cdStatus;
