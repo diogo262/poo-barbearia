@@ -18,7 +18,6 @@ public class TelaFuncionario extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private int cdFuncionario; 
 
 	/**
 	 * Launch the application.
@@ -40,7 +39,6 @@ public class TelaFuncionario extends JFrame {
 	 * Create the frame.
 	 */
 	public TelaFuncionario(int cdFunc) {
-		this.cdFuncionario = cdFunc;
 				
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -58,7 +56,7 @@ public class TelaFuncionario extends JFrame {
 		
         btnListarFunc.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                TelaListarFuncionario telaListarFuncionario = new TelaListarFuncionario(cdFuncionario);
+                TelaListarFuncionario telaListarFuncionario = new TelaListarFuncionario(cdFunc);
 
                 telaListarFuncionario.setVisible(true);
 
@@ -73,7 +71,7 @@ public class TelaFuncionario extends JFrame {
 		
 		btnListarFila.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                TelaListarFila telaListarFila = new TelaListarFila(cdFuncionario);
+                TelaListarFila telaListarFila = new TelaListarFila(cdFunc);
 
                 telaListarFila.setVisible(true);
 
@@ -106,7 +104,7 @@ public class TelaFuncionario extends JFrame {
 		
 		btnListarCli.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                TelaListarCliente telaListarCliente = new TelaListarCliente(cdFuncionario);
+                TelaListarCliente telaListarCliente = new TelaListarCliente(cdFunc);
 
                 telaListarCliente.setVisible(true);
 

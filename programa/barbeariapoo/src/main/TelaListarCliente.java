@@ -31,9 +31,7 @@ public class TelaListarCliente extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private int cdFuncionario;
 	private JTable table;
-	
 
 	/**
 	 * Launch the application.
@@ -55,8 +53,6 @@ public class TelaListarCliente extends JFrame {
 	 * Create the frame.
 	 */
 	public TelaListarCliente(int cdFunc) {
-		this.cdFuncionario = cdFunc;
-		
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 700, 400);
@@ -73,7 +69,7 @@ public class TelaListarCliente extends JFrame {
 		btnVoltar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	TelaFuncionario telaFuncionario = new TelaFuncionario(cdFuncionario);
+            	TelaFuncionario telaFuncionario = new TelaFuncionario(cdFunc);
 
                 telaFuncionario.setVisible(true);
             	

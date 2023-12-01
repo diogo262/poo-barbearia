@@ -258,7 +258,7 @@ public class TelaListarFila extends JFrame {
         				model.setRowCount(0);
     					atualizaTabela(model, FilaM.listarPedidosFila());
 
-                		FilaM.chamaDialogAviso("Agora você será responsável por esse atendimento.", "Boa! Bora pra cima!");
+                		FilaM.chamaDialogAviso("Menos um.", "Que pena...Quem sabe da próxima...");
                 	} else 
                 		FilaM.chamaDialogErro("Ops, ocorreu algum erro interno...", "Erro inesperado!");
             	}
