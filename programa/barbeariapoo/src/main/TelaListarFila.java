@@ -162,6 +162,7 @@ public class TelaListarFila extends JFrame {
 						atualizaTabela(model, FilaM.listarPedidosPorFuncionarioEStatus(cdFunc, 5));
 					}
 				} else { // na fila
+					ocultaBotao(btnAtender);
 					ocultaBotao(btnAtendimentoConcluido);
 					btnCancelarAtendimento.setEnabled(true);
 					atualizaTabela(model, FilaM.listarPedidosFila());
